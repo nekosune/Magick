@@ -1,9 +1,9 @@
-package org.cvpcs.bukkit.magikraft.runestruct;
+package org.cvpcs.bukkit.magickraft.runestruct;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.cvpcs.bukkit.magikraft.Magikraft;
+import org.cvpcs.bukkit.magickraft.Magickraft;
 
 import java.util.Arrays;
 import java.util.HashMap;

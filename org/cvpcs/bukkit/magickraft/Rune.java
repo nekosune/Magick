@@ -3,22 +3,22 @@
  * and open the template in the editor.
  */
 
-package org.cvpcs.bukkit.magikraft;
+package org.cvpcs.bukkit.magickraft;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-import org.cvpcs.bukkit.magikraft.runestruct.RuneStructure;
+import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 public abstract class Rune
 {
-    protected Magikraft mPlugin;
+    protected Magickraft mPlugin;
     protected RuneStructure mStructure;
     private boolean mEnabled;
 
-    public Rune(Magikraft plugin, RuneStructure struct)
+    public Rune(Magickraft plugin, RuneStructure struct)
     {
         mPlugin = plugin;
         mStructure = struct;

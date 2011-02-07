@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.cvpcs.bukkit.magikraft;
+package org.cvpcs.bukkit.magickraft;
 
 
 import org.bukkit.Server;
@@ -18,9 +18,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-import org.cvpcs.bukkit.magikraft.runes.ChronoTriggerRune;
-import org.cvpcs.bukkit.magikraft.runes.CompassRune;
-import org.cvpcs.bukkit.magikraft.runes.OracleRune;
+import org.cvpcs.bukkit.magickraft.runes.ChronoTriggerRune;
+import org.cvpcs.bukkit.magickraft.runes.CompassRune;
+import org.cvpcs.bukkit.magickraft.runes.OracleRune;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +38,7 @@ import java.util.Random;
  *
  * @author UserXP
  */
-public class Magikraft extends JavaPlugin {
+public class Magickraft extends JavaPlugin {
 	// a list of all of our runes
 	public static final HashMap<String, Rune> RUNES = new HashMap<String, Rune>();
 	
@@ -49,7 +49,7 @@ public class Magikraft extends JavaPlugin {
 
     private HashSet<String> tool;
 
-    public Magikraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
+    public Magickraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
         getDataFolder().mkdir();
         

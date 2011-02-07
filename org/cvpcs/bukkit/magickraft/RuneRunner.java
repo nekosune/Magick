@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.cvpcs.bukkit.magikraft;
+package org.cvpcs.bukkit.magickraft;
 
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockRightClickEvent;
@@ -23,7 +23,7 @@ public class RuneRunner extends BlockListener
     public void onBlockRightClick(BlockRightClickEvent event)
     {
         //if anything's already using the block do that
-        for(Rune rune : Magikraft.RUNES.values())
+        for(Rune rune : Magickraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -35,7 +35,7 @@ public class RuneRunner extends BlockListener
             }
         }
         //go through enabled runes, see if it's usable
-        for(Rune rune : Magikraft.RUNES.values())
+        for(Rune rune : Magickraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -51,7 +51,7 @@ public class RuneRunner extends BlockListener
     public void onBlockDamage(BlockDamageEvent event)
     {
         //if anything's already using the block do that
-        for(Rune rune : Magikraft.RUNES.values())
+        for(Rune rune : Magickraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -63,7 +63,7 @@ public class RuneRunner extends BlockListener
             }
         }
         //if anything's not using the block, see if anything special can be done (tools)
-        for(Rune rune:Magikraft.RUNES.values())
+        for(Rune rune:Magickraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -80,7 +80,7 @@ public class RuneRunner extends BlockListener
     {
         BlockRedstoneEvent redstoneEvent = (BlockRedstoneEvent) event;
         //if anything's already using the block do that
-        for(Rune rune:Magikraft.RUNES.values())
+        for(Rune rune:Magickraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
