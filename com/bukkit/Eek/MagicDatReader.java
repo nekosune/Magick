@@ -29,18 +29,17 @@ public class MagicDatReader
     {
         this.plugin=plugin;
         ArrayList<ArrayList<Integer[]>> data = new ArrayList<ArrayList<Integer[]>>();
-        InputStreamReader isr;
+        FileInputStream fin;
         try
         {
-            FileInputStream fin = new FileInputStream(plugin.getDataFolder().getAbsolutePath()+File.separator+"magic.dat");
-            isr = new InputStreamReader(fin);
+            fin = new FileInputStream(plugin.getDataFolder().getAbsolutePath()+File.separator+"magic.dat");
         }
         catch(Exception e)
         {
             System.out.println("No magic.dat file to load!");
             return;
         }
-        int first = readint(isr);
+        int first = readint(fin);
         // einlesen der ersten Zahl: -2
 
         if (first != -2)
@@ -48,35 +47,35 @@ public class MagicDatReader
             System.out.println("magic.dat is not in the correct format, it may be corrupt!");
             return;
         }
-        int count_md = readint(isr);
+        int count_md = readint(fin);
 
         for (int i_md = 0; i_md < count_md; i_md++)
         {
             data.add(new ArrayList<Integer[]>());
 
             // die anzahl an Elementen, in der Liste
-            int count = readint(isr);
+            int count = readint(fin);
 
             for (int i = 0; i < count; i++)
             {
-                int count_entry = readint(isr);
+                int count_entry = readint(fin);
                 data.get(i_md).add(new Integer[count_entry]);
 
 
                 for (int iE = 0; iE < count_entry; iE++)
                 {
-                    data.get(i_md).get(i)[iE] = readint(isr);
+                    data.get(i_md).get(i)[iE] = readint(fin);
                 }
 
             }
         }
-        try{isr.close();}catch(Exception e){}
+        try{fin.close();}catch(Exception e){}
         generateData(data);
         saveWarpState();
         saveTeleState();
         System.out.println("Magic.dat conversion complete.");
     }
-    private int readint(InputStreamReader stream)
+    private int readint(FileInputStream stream)
     {
         try
         {
