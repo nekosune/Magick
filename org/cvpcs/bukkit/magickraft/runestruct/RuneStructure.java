@@ -3,10 +3,8 @@ package org.cvpcs.bukkit.magickraft.runestruct;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.cvpcs.bukkit.magickraft.Magickraft;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class RuneStructure {
 	private int mWidth;			// width of the rune
