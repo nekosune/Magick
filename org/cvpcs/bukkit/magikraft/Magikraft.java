@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.bukkit.Eek;
+package org.cvpcs.bukkit.magikraft;
 import java.io.File;
 import org.bukkit.Server;
 import org.bukkit.event.Event.Priority;
@@ -29,7 +29,7 @@ import java.util.Random;
  *
  * @author UserXP
  */
-public class EekRunes extends JavaPlugin {
+public class Magikraft extends JavaPlugin {
     private RuneRunner runeRunner;
     private WarpRune warpRune;
     private TeleportRune teleportRune;
@@ -45,7 +45,7 @@ public class EekRunes extends JavaPlugin {
 
     private HashSet<String> tool;
 
-    public EekRunes(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
+    public Magikraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
         getDataFolder().mkdir();
         FormatConverter conv = new FormatConverter();
@@ -126,11 +126,11 @@ public class EekRunes extends JavaPlugin {
     }
 
     public void onDisable() {
-        System.out.println("EekRunes unloaded!");
+        System.out.println("Magikraft unloaded!");
     }
 
     public void onEnable() {
-        System.out.println("EekRunes "+this.getDescription().getVersion()+" loaded!");
+        System.out.println("Magikraft "+this.getDescription().getVersion()+" loaded!");
     }
 
     private void registerEvents() {

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.bukkit.Eek;
+package org.cvpcs.bukkit.magikraft;
 import java.util.HashMap;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;

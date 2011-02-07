@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.bukkit.Eek;
+package org.cvpcs.bukkit.magikraft;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.bukkit.Eek;
+package org.cvpcs.bukkit.magikraft;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
