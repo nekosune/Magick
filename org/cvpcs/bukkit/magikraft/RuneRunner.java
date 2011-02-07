@@ -22,7 +22,6 @@ public class RuneRunner extends BlockListener
     @Override
     public void onBlockRightClick(BlockRightClickEvent event)
     {
-System.out.println("Running right click");
         //if anything's already using the block do that
         for(Rune rune : Magikraft.RUNES.values())
         {
@@ -40,7 +39,6 @@ System.out.println("Running right click");
         {
             if (rune.getIsEnabled())
             {
-System.out.println("Running rune " + rune.getClass().getName());
                 if (rune.runRuneRightClick(event))
                 {
                     //one of the other runes already used the event, so end of rune

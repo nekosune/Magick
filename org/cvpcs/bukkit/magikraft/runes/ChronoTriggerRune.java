@@ -3,12 +3,17 @@
  * and open the template in the editor.
  */
 
-package org.cvpcs.bukkit.magikraft;
+package org.cvpcs.bukkit.magikraft.runes;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.event.block.BlockRightClickEvent;
+import org.cvpcs.bukkit.magikraft.Magikraft;
+import org.cvpcs.bukkit.magikraft.Rune;
+import org.cvpcs.bukkit.magikraft.runestruct.RNAnything;
+import org.cvpcs.bukkit.magikraft.runestruct.RNMaterial;
+import org.cvpcs.bukkit.magikraft.runestruct.IRuneNode;
+import org.cvpcs.bukkit.magikraft.runestruct.RuneStructure;
 /**
  *
  * @author UserXP
@@ -19,21 +24,21 @@ public class ChronoTriggerRune extends Rune
 	
     public ChronoTriggerRune(Magikraft plugin)
     {
-        super(plugin, new RuneStructure(plugin, 3, 3, 3, 2, new int[][][]{
+        super(plugin, new RuneStructure(3, 3, 3, 2, new IRuneNode[][][]{
         		{
-        			{0, 0                                 , 0},
-        			{0, -(Material.IRON_BLOCK.getId() + 2), 0},
-        			{0, 0                                 , 0},
+        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
+        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
         		},
         		{
-        			{0, 0                                 , 0},
-        			{0, -(Material.IRON_BLOCK.getId() + 2), 0},
-        			{0, 0                                 , 0},
+        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
+        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
         		},
         		{
-            		{-(Material.GOLD_BLOCK.getId() + 2), -(Material.GOLD_BLOCK.getId() + 2)   , -(Material.OBSIDIAN.getId() + 2)},
-            		{-(Material.GOLD_BLOCK.getId() + 2), -(Material.DIAMOND_BLOCK.getId() + 2), -(Material.OBSIDIAN.getId() + 2)},
-            		{-(Material.GOLD_BLOCK.getId() + 2), -(Material.OBSIDIAN.getId() + 2)     , -(Material.OBSIDIAN.getId() + 2)},
+        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.GOLD_BLOCK)   , RNMaterial.getInstance(Material.OBSIDIAN)},
+        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.DIAMOND_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)},
+        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)     , RNMaterial.getInstance(Material.OBSIDIAN)},
         		},
             }));
     }

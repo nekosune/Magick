@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.cvpcs.bukkit.magikraft.runestruct.RuneStructure;
 
 public abstract class Rune
 {

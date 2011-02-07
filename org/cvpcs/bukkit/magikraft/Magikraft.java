@@ -18,6 +18,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
+import org.cvpcs.bukkit.magikraft.runes.ChronoTriggerRune;
+import org.cvpcs.bukkit.magikraft.runes.CompassRune;
+import org.cvpcs.bukkit.magikraft.runes.OracleRune;
 
 import java.io.BufferedReader;
 import java.io.File;
