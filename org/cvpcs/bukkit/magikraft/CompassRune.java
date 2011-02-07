@@ -14,48 +14,31 @@ import org.bukkit.Material;
  */
 public class CompassRune extends Rune
 {
-    public CompassRune(EekRunes plugin)
-    {
-        super(plugin);
+	public static final String NAME = "compass";
+	
+    public CompassRune(Magikraft plugin) {
+        super(plugin, new RuneStructure(plugin, 3, 3, new int[][]{
+        		{1                          , -(Material.AIR.getId() + 2), 1                          },
+        		{-(Material.AIR.getId() + 2), 1                          , -(Material.AIR.getId() + 2)},
+        		{1                          , -(Material.AIR.getId() + 2), 1                          },
+        }));
     }
+    
     @Override
-    public boolean runRuneRightClick(BlockRightClickEvent event)
-    {
+    public boolean runRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();
-        if (canCompass(block) && (event.getItemInHand().getType()==Material.AIR || !event.getItemInHand().getType().isBlock()))
-        {
+        
+        if (super.mStructure.isRune(block) &&
+        		(event.getItemInHand().getType()==Material.AIR || !event.getItemInHand().getType().isBlock())) {
+        	block.getFace(BlockFace.NORTH).setType(block.getType());
             block.setType(Material.AIR);
+            block.getFace(BlockFace.EAST).setType(block.getFace(BlockFace.NORTH_EAST).getType());
             block.getFace(BlockFace.NORTH_EAST).setType(Material.AIR);
+            block.getFace(BlockFace.WEST).setType(block.getFace(BlockFace.NORTH_WEST).getType());
             block.getFace(BlockFace.NORTH_WEST).setType(Material.AIR);
-            block.getFace(BlockFace.NORTH).setType(block.getFace(BlockFace.SOUTH_EAST).getType());
-            block.getFace(BlockFace.EAST).setType(block.getFace(BlockFace.SOUTH_EAST).getType());
-            block.getFace(BlockFace.WEST).setType(block.getFace(BlockFace.SOUTH_EAST).getType());
             return true;
         }
+        
         return false;
-    }
-    private boolean canCompass(Block block)
-    {
-        Material mat = block.getType();
-        return
-        (
-            (this.plugin.getTier(mat)>0)
-            &&
-            block.getFace(BlockFace.NORTH_EAST).getType()==mat
-            &&
-            block.getFace(BlockFace.SOUTH_EAST).getType()==mat
-            &&
-            block.getFace(BlockFace.SOUTH_WEST).getType()==mat
-            &&
-            block.getFace(BlockFace.NORTH_WEST).getType()==mat
-            &&
-            block.getFace(BlockFace.NORTH).getType()==Material.AIR
-            &&
-            block.getFace(BlockFace.EAST).getType()==Material.AIR
-            &&
-            block.getFace(BlockFace.SOUTH).getType()==Material.AIR
-            &&
-            block.getFace(BlockFace.WEST).getType()==Material.AIR
-        );
     }
 }

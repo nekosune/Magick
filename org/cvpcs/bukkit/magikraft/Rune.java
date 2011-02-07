@@ -4,22 +4,23 @@
  */
 
 package org.cvpcs.bukkit.magikraft;
+
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
-import org.bukkit.Location;
-/**
- *
- * @author chris.stewart
- */
+
 public abstract class Rune
 {
-    protected EekRunes plugin;
-    private boolean isEnabled;
+    protected Magikraft mPlugin;
+    protected RuneStructure mStructure;
+    private boolean mEnabled;
 
-    public Rune(EekRunes plugin)
+    public Rune(Magikraft plugin, RuneStructure struct)
     {
-        this.plugin=plugin;
+        mPlugin = plugin;
+        mStructure = struct;
     }
 
     public boolean runRuneRightClick(BlockRightClickEvent event)
@@ -32,6 +33,7 @@ public abstract class Rune
     {
         return false;
     }
+    
     /*
      * unused - no runes are created redstone
     public boolean runRuneRedstone(BlockRedstoneEvent event)
@@ -43,37 +45,38 @@ public abstract class Rune
     {
         return false;
     }
+    
     public boolean runRuneDamageUsingBlock(BlockDamageEvent event)
     {
         return false;
     }
+    
     public boolean runRuneRedstoneUsingBlock(BlockRedstoneEvent event)
     {
         return false;
     }
-    public boolean getIsEnabled()
+    
+    public boolean getIsEnabled() { return this.mEnabled; }
+    public void setEnabled(boolean enabled) { this.mEnabled = enabled; }
+    
+    public Location stringToLoc(String locstr)
     {
-        return isEnabled;
-    }
-    public void setEnabled(boolean enabled)
-    {
-        isEnabled = enabled;
-    }
-    public Location stringToLoc(String loc)
-    {
-        String[] coords = loc.split(" ");
-        for(org.bukkit.World world:plugin.getServer().getWorlds())
+        String[] coords = locstr.split(" ");
+        for(World world : this.mPlugin.getServer().getWorlds())
         {
-            if(world.getId()==Long.parseLong(coords[0]))
-            {
-                Location loc1 = world.getBlockAt(Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3])).getLocation();
-                return loc1;
-            }
+        	try {
+        		if(world.getId() == Long.parseLong(coords[0]))
+        		{
+        			Location loc = world.getBlockAt(Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3])).getLocation();
+        			return loc;
+        		}
+        	} catch(NumberFormatException e) { /* ignore this for now */ }
         }
         return null;
     }
+
     public String locToString(Location loc)
     {
-        return loc.getWorld().getId()+" "+loc.getBlockX()+" "+loc.getBlockY()+" "+loc.getBlockZ();
+        return loc.getWorld().getId() + " " + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ();
     }
 }

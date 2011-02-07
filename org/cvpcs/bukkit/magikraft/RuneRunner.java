@@ -4,28 +4,27 @@
  */
 
 package org.cvpcs.bukkit.magikraft;
+
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+
+import java.util.HashMap;
+
 /**
  *
  * @author chris.stewart
  */
 public class RuneRunner extends BlockListener
-{
-    private Rune[] runes;
-    public RuneRunner(Rune[] runes)
-    {
-        this.runes=runes;
-    }
-
+{    
     @Override
     public void onBlockRightClick(BlockRightClickEvent event)
     {
+System.out.println("Running right click");
         //if anything's already using the block do that
-        for(Rune rune:runes)
+        for(Rune rune : Magikraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -37,10 +36,11 @@ public class RuneRunner extends BlockListener
             }
         }
         //go through enabled runes, see if it's usable
-        for(Rune rune:runes)
+        for(Rune rune : Magikraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
+System.out.println("Running rune " + rune.getClass().getName());
                 if (rune.runRuneRightClick(event))
                 {
                     //one of the other runes already used the event, so end of rune
@@ -53,7 +53,7 @@ public class RuneRunner extends BlockListener
     public void onBlockDamage(BlockDamageEvent event)
     {
         //if anything's already using the block do that
-        for(Rune rune:runes)
+        for(Rune rune : Magikraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -65,7 +65,7 @@ public class RuneRunner extends BlockListener
             }
         }
         //if anything's not using the block, see if anything special can be done (tools)
-        for(Rune rune:runes)
+        for(Rune rune:Magikraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {
@@ -82,7 +82,7 @@ public class RuneRunner extends BlockListener
     {
         BlockRedstoneEvent redstoneEvent = (BlockRedstoneEvent) event;
         //if anything's already using the block do that
-        for(Rune rune:runes)
+        for(Rune rune:Magikraft.RUNES.values())
         {
             if (rune.getIsEnabled())
             {

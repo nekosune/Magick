@@ -7,6 +7,7 @@ package org.cvpcs.bukkit.magikraft;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.event.block.BlockRightClickEvent;
 /**
  *
@@ -14,15 +15,34 @@ import org.bukkit.event.block.BlockRightClickEvent;
  */
 public class ChronoTriggerRune extends Rune
 {
-    public ChronoTriggerRune(EekRunes plugin)
+	public static final String NAME = "chronotrigger";
+	
+    public ChronoTriggerRune(Magikraft plugin)
     {
-        super(plugin);
+        super(plugin, new RuneStructure(plugin, 3, 3, 3, 2, new int[][][]{
+        		{
+        			{0, 0                                 , 0},
+        			{0, -(Material.IRON_BLOCK.getId() + 2), 0},
+        			{0, 0                                 , 0},
+        		},
+        		{
+        			{0, 0                                 , 0},
+        			{0, -(Material.IRON_BLOCK.getId() + 2), 0},
+        			{0, 0                                 , 0},
+        		},
+        		{
+            		{-(Material.GOLD_BLOCK.getId() + 2), -(Material.GOLD_BLOCK.getId() + 2)   , -(Material.OBSIDIAN.getId() + 2)},
+            		{-(Material.GOLD_BLOCK.getId() + 2), -(Material.DIAMOND_BLOCK.getId() + 2), -(Material.OBSIDIAN.getId() + 2)},
+            		{-(Material.GOLD_BLOCK.getId() + 2), -(Material.OBSIDIAN.getId() + 2)     , -(Material.OBSIDIAN.getId() + 2)},
+        		},
+            }));
     }
 
     @Override
     public boolean runRuneRightClick(BlockRightClickEvent event)
     {
         Block block = event.getBlock();
+        
         if (canChrono(block))
         {
             if (block.getY()<108)
@@ -116,6 +136,7 @@ public class ChronoTriggerRune extends Rune
         }
         return false;
     }
+    
     private boolean canChrono(Block block)
     {
         int redCount=0;
@@ -133,30 +154,9 @@ public class ChronoTriggerRune extends Rune
         }
         if (redCount!=1)return false;
         return
-            (
-                block.getType()==Material.DIAMOND_BLOCK
-                &&
-                block.getFace(BlockFace.WEST).getType()==Material.GOLD_BLOCK
-                &&
-                block.getFace(BlockFace.NORTH_WEST).getType()==Material.GOLD_BLOCK
-                &&
-                block.getFace(BlockFace.NORTH).getType()==Material.GOLD_BLOCK
-                &&
-                block.getFace(BlockFace.NORTH_EAST).getType()==Material.GOLD_BLOCK
-                &&
-                block.getFace(BlockFace.EAST).getType()==Material.OBSIDIAN
-                &&
-                block.getFace(BlockFace.SOUTH_EAST).getType()==Material.OBSIDIAN
-                &&
-                block.getFace(BlockFace.SOUTH).getType()==Material.OBSIDIAN
-                &&
-                block.getFace(BlockFace.SOUTH_WEST).getType()==Material.OBSIDIAN
-                &&
-                block.getFace(BlockFace.DOWN).getType()==Material.IRON_BLOCK
-                &&
-                block.getFace(BlockFace.DOWN,2).getType()==Material.IRON_BLOCK
-            );
+            (super.mStructure.isRune(block));
     }
+    
     private boolean hasCeiling(Block block)
     {
         for(int i=-1;i<2;i++)
