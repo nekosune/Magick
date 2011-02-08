@@ -13,7 +13,7 @@ import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
-import org.cvpcs.bukkit.magickraft.runestruct.RNComplex;
+import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterialGroup;
 import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
@@ -34,13 +34,13 @@ public class DoorRune extends Rune {
         super(plugin, new RuneStructure(3, 1, 3, 2, new IRuneNode[][][]{
         		{
         			{
-            			RNComplex.getInstance(
+            			RNComplexAnd.getInstance(
             					RNTier.getInstance(1),
             					RNMaterialGroup.getInstance(0)),
 
             			RNMaterial.getInstance(Material.IRON_ORE),
 
-            			RNComplex.getInstance(
+            			RNComplexAnd.getInstance(
             					RNTier.getInstance(1),
             					RNMaterialGroup.getInstance(0)),
         			},
@@ -56,15 +56,15 @@ public class DoorRune extends Rune {
         		},
         		{
         			{
-            			RNComplex.getInstance(
+            			RNComplexAnd.getInstance(
             					RNTier.getInstance(1),
             					RNMaterialGroup.getInstance(0)),
 
-            			RNComplex.getInstance(
+            			RNComplexAnd.getInstance(
             					RNTier.getInstance(1),
             					RNMaterialGroup.getInstance(0)),
 
-            			RNComplex.getInstance(
+            			RNComplexAnd.getInstance(
             					RNTier.getInstance(1),
             					RNMaterialGroup.getInstance(0)),
         			},
@@ -176,34 +176,6 @@ public class DoorRune extends Rune {
     			block.getFace(BlockFace.DOWN, 2).setType(Material.AIR);
     			return true;
     		}
-    	}
-    	
-    	return false;
-    }
-    
-    @Override
-    public boolean isRuneRedstoneUsingBlock(BlockRedstoneEvent event) {
-    	Block block = event.getBlock();
-    	Door door = getDoor(block.getLocation());
-		
-    	// only works if we have a door and it has no key
-    	if(door != null && door.key < 0) {
-    		System.out.println("door block redstone event");
-    		System.out.println("  block:    " + block.getLocation().toString());
-    		System.out.println("  powered:  " + (block.isBlockPowered() ? "true" : "false"));
-    		System.out.println("  ipowered: " + (block.isBlockIndirectlyPowered() ? "true" : "false"));
-    		System.out.println("  oldcur:   " + event.getOldCurrent());
-    		System.out.println("  newcur:   " + event.getNewCurrent());
-    		
-    		if(event.getNewCurrent() == 0) {
-        		block.getFace(BlockFace.DOWN, 1).setType(block.getType());
-        		block.getFace(BlockFace.DOWN, 2).setType(block.getType());
-    		} else {
-    			block.getFace(BlockFace.DOWN, 1).setType(Material.AIR);
-    			block.getFace(BlockFace.DOWN, 2).setType(Material.AIR);
-    		}
-    		
-    		return true;
     	}
     	
     	return false;

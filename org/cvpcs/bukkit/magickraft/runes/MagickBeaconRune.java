@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
-import org.cvpcs.bukkit.magickraft.runestruct.RNComplex;
+import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterialGroup;
 import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
@@ -31,39 +31,39 @@ public class MagickBeaconRune extends Rune {
     public MagickBeaconRune(Magickraft plugin) {
         super(plugin, new RuneStructure(3, 3, new IRuneNode[][]{
         	{
-    			RNComplex.getInstance(
+    			RNComplexAnd.getInstance(
     					RNTier.getInstance(1),
     					RNMaterialGroup.getInstance(0)),
 	
-				RNComplex.getInstance(
+				RNComplexAnd.getInstance(
 						RNTier.getInstance(1),
 						RNMaterialGroup.getInstance(1)),
 
-    			RNComplex.getInstance(
+    			RNComplexAnd.getInstance(
     					RNTier.getInstance(1),
     					RNMaterialGroup.getInstance(0)),
         	},
         	{
-    			RNComplex.getInstance(
+    			RNComplexAnd.getInstance(
     					RNTier.getInstance(1),
     					RNMaterialGroup.getInstance(1)),
 	
 				RNMaterial.getInstance(Material.GLOWSTONE),
 
-    			RNComplex.getInstance(
+    			RNComplexAnd.getInstance(
     					RNTier.getInstance(1),
     					RNMaterialGroup.getInstance(1)),
         	},
         	{
-    			RNComplex.getInstance(
+    			RNComplexAnd.getInstance(
     					RNTier.getInstance(1),
     					RNMaterialGroup.getInstance(0)),
 	
-				RNComplex.getInstance(
+				RNComplexAnd.getInstance(
 						RNTier.getInstance(1),
 						RNMaterialGroup.getInstance(1)),
 
-    			RNComplex.getInstance(
+    			RNComplexAnd.getInstance(
     					RNTier.getInstance(1),
     					RNMaterialGroup.getInstance(0)),
         	},
