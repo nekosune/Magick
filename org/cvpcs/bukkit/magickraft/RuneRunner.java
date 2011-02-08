@@ -25,9 +25,9 @@ public class RuneRunner extends BlockListener
         //if anything's already using the block do that
         for(Rune rune : Magickraft.RUNES.values())
         {
-            if (rune.getIsEnabled())
+            if (rune.getEnabled())
             {
-                if (rune.runRuneRightClickUsingBlock(event))
+                if (rune.isRuneRightClickUsingBlock(event))
                 {
                     //block in use, so end of rune
                     return;
@@ -37,9 +37,9 @@ public class RuneRunner extends BlockListener
         //go through enabled runes, see if it's usable
         for(Rune rune : Magickraft.RUNES.values())
         {
-            if (rune.getIsEnabled())
+            if (rune.getEnabled())
             {
-                if (rune.runRuneRightClick(event))
+                if (rune.onRuneRightClick(event))
                 {
                     //one of the other runes already used the event, so end of rune
                     return;
@@ -53,9 +53,9 @@ public class RuneRunner extends BlockListener
         //if anything's already using the block do that
         for(Rune rune : Magickraft.RUNES.values())
         {
-            if (rune.getIsEnabled())
+            if (rune.getEnabled())
             {
-                if (rune.runRuneDamageUsingBlock(event))
+                if (rune.isRuneDamageUsingBlock(event))
                 {
                     //block in use, so end of rune
                     return;
@@ -65,9 +65,9 @@ public class RuneRunner extends BlockListener
         //if anything's not using the block, see if anything special can be done (tools)
         for(Rune rune:Magickraft.RUNES.values())
         {
-            if (rune.getIsEnabled())
+            if (rune.getEnabled())
             {
-                if (rune.runRuneDamage(event))
+                if (rune.onRuneDamage(event))
                 {
                     //block in use, so end of rune
                     return;
@@ -82,9 +82,9 @@ public class RuneRunner extends BlockListener
         //if anything's already using the block do that
         for(Rune rune:Magickraft.RUNES.values())
         {
-            if (rune.getIsEnabled())
+            if (rune.getEnabled())
             {
-                if (rune.runRuneRedstoneUsingBlock(redstoneEvent))
+                if (rune.isRuneRedstoneUsingBlock(redstoneEvent))
                 {
                     //block in use, so end of rune
                     return;

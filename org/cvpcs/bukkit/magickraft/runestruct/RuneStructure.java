@@ -99,7 +99,7 @@ public class RuneStructure {
 		}
 	}
 	
-	public boolean isRune(Block block) {
+	public boolean tryRune(Block block) {
 		// check all rotations
 		for(int r = 0; r < 4; r++) {
 			boolean found = true;

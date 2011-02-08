@@ -29,10 +29,10 @@ public class OracleRune extends Rune {
     }
     
     @Override
-    public boolean runRuneRightClick(BlockRightClickEvent event) {
+    public boolean onRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();
         
-        if (super.mStructure.isRune(block)) {
+        if (tryRune(block)) {
         	int blockTier = RNTier.getTier(block);
         	
             if(blockTier > -1) {

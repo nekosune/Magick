@@ -44,7 +44,7 @@ public class ChronoTriggerRune extends Rune
     }
 
     @Override
-    public boolean runRuneRightClick(BlockRightClickEvent event)
+    public boolean onRuneRightClick(BlockRightClickEvent event)
     {
         Block block = event.getBlock();
         
@@ -159,7 +159,7 @@ public class ChronoTriggerRune extends Rune
         }
         if (redCount!=1)return false;
         return
-            (super.mStructure.isRune(block));
+            (tryRune(block));
     }
     
     private boolean hasCeiling(Block block)

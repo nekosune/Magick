@@ -5,8 +5,7 @@
 
 package org.cvpcs.bukkit.magickraft;
 
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
@@ -15,69 +14,45 @@ import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 public abstract class Rune
 {
     protected Magickraft mPlugin;
-    protected RuneStructure mStructure;
+    private RuneStructure mStructure;
     private boolean mEnabled;
 
-    public Rune(Magickraft plugin, RuneStructure struct)
-    {
+    public Rune(Magickraft plugin, RuneStructure struct) {
         mPlugin = plugin;
         mStructure = struct;
     }
 
-    public boolean runRuneRightClick(BlockRightClickEvent event)
-    {
+    public boolean onRuneRightClick(BlockRightClickEvent event) {
         System.out.println("Method not implemented by rune, returning false");
         return false;
     }
 
-    public boolean runRuneDamage(BlockDamageEvent event)
-    {
+    public boolean onRuneDamage(BlockDamageEvent event) {
         return false;
     }
     
     /*
      * unused - no runes are created redstone
-    public boolean runRuneRedstone(BlockRedstoneEvent event)
-    {
+    public boolean runRuneRedstone(BlockRedstoneEvent event) {
         return false;
     }*/
 
-    public boolean runRuneRightClickUsingBlock(BlockRightClickEvent event)
-    {
+    public boolean isRuneRightClickUsingBlock(BlockRightClickEvent event) {
         return false;
     }
     
-    public boolean runRuneDamageUsingBlock(BlockDamageEvent event)
-    {
+    public boolean isRuneDamageUsingBlock(BlockDamageEvent event) {
         return false;
     }
     
-    public boolean runRuneRedstoneUsingBlock(BlockRedstoneEvent event)
-    {
+    public boolean isRuneRedstoneUsingBlock(BlockRedstoneEvent event) {
         return false;
     }
     
-    public boolean getIsEnabled() { return this.mEnabled; }
+    public boolean getEnabled() { return this.mEnabled; }
     public void setEnabled(boolean enabled) { this.mEnabled = enabled; }
     
-    public Location stringToLoc(String locstr)
-    {
-        String[] coords = locstr.split(" ");
-        for(World world : this.mPlugin.getServer().getWorlds())
-        {
-        	try {
-        		if(world.getId() == Long.parseLong(coords[0]))
-        		{
-        			Location loc = world.getBlockAt(Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3])).getLocation();
-        			return loc;
-        		}
-        	} catch(NumberFormatException e) { /* ignore this for now */ }
-        }
-        return null;
-    }
-
-    public String locToString(Location loc)
-    {
-        return loc.getWorld().getId() + " " + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ();
+    protected boolean tryRune(Block b) {
+    	return mStructure.tryRune(b);
     }
 }

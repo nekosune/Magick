@@ -59,11 +59,11 @@ public class CompassRune extends Rune {
     }
     
     @Override
-    public boolean runRuneRightClick(BlockRightClickEvent event) {
+    public boolean onRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();
         
-        if (super.mStructure.isRune(block) &&
-        		(event.getItemInHand().getType()==Material.AIR || !event.getItemInHand().getType().isBlock())) {
+        if ((event.getItemInHand().getType()==Material.AIR || !event.getItemInHand().getType().isBlock()) &&
+        		tryRune(block)) {
         	block.getFace(BlockFace.NORTH).setType(block.getType());
             block.setType(Material.AIR);
             block.getFace(BlockFace.EAST).setType(block.getFace(BlockFace.NORTH_EAST).getType());

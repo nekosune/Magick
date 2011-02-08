@@ -42,16 +42,17 @@ public class Magickraft extends JavaPlugin {
 	// a list of all of our runes
 	public static final HashMap<String, Rune> RUNES = new HashMap<String, Rune>();
 	
+	public static MagickraftConfig CONFIG = null;
+	
     private RuneRunner runeRunner;
     
-    private HashMap<String,Boolean> options;
     private Random rand = new Random();
 
     private HashSet<String> tool;
 
     public Magickraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
-        getDataFolder().mkdir();
+        CONFIG = new MagickraftConfig(this);
         
         RUNES.clear();
         RUNES.put(OracleRune.NAME, new OracleRune(this));
@@ -59,9 +60,6 @@ public class Magickraft extends JavaPlugin {
         RUNES.put(ChronoTriggerRune.NAME, new ChronoTriggerRune(this));
         
         runeRunner = new RuneRunner();
-        
-        tool = new HashSet<String>();
-        loadState();
     }
 
     public void onDisable() {
@@ -75,63 +73,12 @@ public class Magickraft extends JavaPlugin {
 
     private void registerEvents() {
     	for(Map.Entry<String, Rune> entry : RUNES.entrySet()) {
-    		if(options.get(entry.getKey()) != Boolean.TRUE) {
-    			options.put(entry.getKey(), Boolean.FALSE);
-    		}
-    		
-    		entry.getValue().setEnabled(options.get(entry.getKey()) == Boolean.TRUE);
+    		entry.getValue().setEnabled(CONFIG.getRuneBoolean(entry.getKey(), MagickraftConfig.RUNE_ENABLED_KEY));
     	}
-        
-        saveState();
         
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, runeRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_DAMAGED, runeRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.REDSTONE_CHANGE, runeRunner, Priority.Normal, this);
-    }
-    
-    private void saveState()
-    {
-        try
-        {
-            FileOutputStream fout = new FileOutputStream(getDataFolder().getAbsolutePath()+File.separator+"settings.ini");
-            OutputStreamWriter osw = new OutputStreamWriter(fout);
-            for(String option: options.keySet())
-            {
-                osw.write(option+"="+options.get(option)+"\r\n");
-            }
-            osw.close();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Could not save option state - the location may be write protected");
-            System.out.println(getDataFolder().getAbsolutePath()+File.separator+"settings.ini");
-        }
-    }
-    
-    private void loadState()
-    {
-        options = new HashMap<String,Boolean>();
-        try
-        {
-            FileInputStream fin = new FileInputStream(getDataFolder().getAbsolutePath()+File.separator+"settings.ini");
-            BufferedReader br = new BufferedReader(new InputStreamReader(fin));
-            String option = "";
-            while ((option = br.readLine())!=null)
-            {
-                String[] split = option.split("=", 2);
-                options.put(split[0].trim(), Boolean.parseBoolean(split[1].trim()));
-            }
-            br.close();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Could not load option state - starting new option list");
-            options = new HashMap<String,Boolean>();
-            for(String rune : RUNES.keySet()) {
-            	options.put(rune, Boolean.TRUE);
-            }
-            saveState();
-        }
     }
     
     private Location getSafeLocation(Location loc)
