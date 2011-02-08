@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import org.cvpcs.bukkit.magickraft.runes.MagickBeaconRune;
 import org.cvpcs.bukkit.magickraft.runes.ChronoTriggerRune;
 import org.cvpcs.bukkit.magickraft.runes.CompassRune;
 import org.cvpcs.bukkit.magickraft.runes.DoorRune;
@@ -38,6 +39,7 @@ public class Magickraft extends JavaPlugin {
         RUNES.put(CompassRune.NAME, new CompassRune(this));
         RUNES.put(ChronoTriggerRune.NAME, new ChronoTriggerRune(this));
         RUNES.put(DoorRune.NAME, new DoorRune(this));
+        RUNES.put(MagickBeaconRune.NAME, new MagickBeaconRune(this));
         
         runeRunner = new RuneRunner();
     }
