@@ -25,12 +25,6 @@ public abstract class Rune
     public boolean onRuneDamage(BlockDamageEvent event) {
         return false;
     }
-    
-    /*
-     * unused - no runes are created redstone
-    public boolean runRuneRedstone(BlockRedstoneEvent event) {
-        return false;
-    }*/
 
     public boolean isRuneRightClickUsingBlock(BlockRightClickEvent event) {
         return false;

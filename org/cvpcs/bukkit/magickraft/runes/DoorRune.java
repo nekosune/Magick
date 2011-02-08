@@ -1,6 +1,7 @@
 package org.cvpcs.bukkit.magickraft.runes;
 
 import org.bukkit.event.block.BlockRightClickEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockDamageLevel;
@@ -118,7 +119,7 @@ public class DoorRune extends Rune {
         		block.getFace(BlockFace.DOWN, 2).setType(block.getType());
     		} else {
     			// door is hiding, show that bitch!
-    			if(door.key >= 0) {
+    			if(door.key > 0) {
     				// we have a key, make sure the key is present
     				boolean keyFound = false;
     				Block curBlock;
@@ -175,6 +176,34 @@ public class DoorRune extends Rune {
     			block.getFace(BlockFace.DOWN, 2).setType(Material.AIR);
     			return true;
     		}
+    	}
+    	
+    	return false;
+    }
+    
+    @Override
+    public boolean isRuneRedstoneUsingBlock(BlockRedstoneEvent event) {
+    	Block block = event.getBlock();
+    	Door door = getDoor(block.getLocation());
+		
+    	// only works if we have a door and it has no key
+    	if(door != null && door.key < 0) {
+    		System.out.println("door block redstone event");
+    		System.out.println("  block:    " + block.getLocation().toString());
+    		System.out.println("  powered:  " + (block.isBlockPowered() ? "true" : "false"));
+    		System.out.println("  ipowered: " + (block.isBlockIndirectlyPowered() ? "true" : "false"));
+    		System.out.println("  oldcur:   " + event.getOldCurrent());
+    		System.out.println("  newcur:   " + event.getNewCurrent());
+    		
+    		if(event.getNewCurrent() == 0) {
+        		block.getFace(BlockFace.DOWN, 1).setType(block.getType());
+        		block.getFace(BlockFace.DOWN, 2).setType(block.getType());
+    		} else {
+    			block.getFace(BlockFace.DOWN, 1).setType(Material.AIR);
+    			block.getFace(BlockFace.DOWN, 2).setType(Material.AIR);
+    		}
+    		
+    		return true;
     	}
     	
     	return false;
