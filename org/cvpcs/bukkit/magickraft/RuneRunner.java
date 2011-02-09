@@ -3,7 +3,6 @@ package org.cvpcs.bukkit.magickraft;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
 public class RuneRunner extends BlockListener {
@@ -48,12 +47,10 @@ public class RuneRunner extends BlockListener {
     }
 
     @Override
-    public void onBlockRedstoneChange(BlockFromToEvent event) {
-        BlockRedstoneEvent redstoneEvent = (BlockRedstoneEvent) event;
-
+    public void onBlockRedstoneChange(BlockRedstoneEvent event) {
         for(Rune rune:Magickraft.RUNES.values()) {
             if (rune.getEnabled()) {
-                if (rune.onRuneUseRedstone(redstoneEvent)) {
+                if (rune.onRuneUseRedstone(event)) {
                     return;
                 }
             }
@@ -61,7 +58,7 @@ public class RuneRunner extends BlockListener {
 
         for(Rune rune:Magickraft.RUNES.values()) {
             if (rune.getEnabled()) {
-                if (rune.onRuneRedstone(redstoneEvent)) {
+                if (rune.onRuneRedstone(event)) {
                     return;
                 }
             }
