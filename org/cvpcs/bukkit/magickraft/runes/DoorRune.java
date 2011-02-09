@@ -1,7 +1,6 @@
 package org.cvpcs.bukkit.magickraft.runes;
 
 import org.bukkit.event.block.BlockRightClickEvent;
-import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockDamageLevel;
@@ -115,7 +114,19 @@ public class DoorRune extends Rune {
 
                 return true;
             }
-    	} else {
+    	}
+
+        return false;
+    }
+
+    @Override
+    public boolean onRuneUseRightClick(BlockRightClickEvent event) {
+        Block block = event.getBlock();
+
+        // look for a door
+    	Door door = getDoor(block.getLocation());
+
+    	if(door != null) {
     		if(block.getFace(BlockFace.DOWN, 1).getTypeId() == Material.AIR.getId()) {
     			// door is showing, hide that bitch!
         		block.getFace(BlockFace.DOWN, 1).setType(block.getType());
@@ -197,10 +208,11 @@ public class DoorRune extends Rune {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
         	PreparedStatement stmt = sqlConn.prepareStatement(
-        			"select * from doors where x = ? and y = ? and z = ?");
-        	stmt.setInt(1, loc.getBlockX());
-        	stmt.setInt(2, loc.getBlockY());
-        	stmt.setInt(3, loc.getBlockZ());
+        			"select * from doors where w = ? and x = ? and y = ? and z = ?");
+        	stmt.setLong(1, loc.getWorld().getId());
+        	stmt.setInt(2, loc.getBlockX());
+        	stmt.setInt(3, loc.getBlockY());
+        	stmt.setInt(4, loc.getBlockZ());
 
         	ResultSet rs = stmt.executeQuery();
 
@@ -230,14 +242,21 @@ public class DoorRune extends Rune {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
         	Statement stmt = sqlConn.createStatement();
-        	stmt.executeUpdate("create table if not exists doors (x, y, z, key);");
+        	stmt.executeUpdate("create table if not exists doors ("
+        			+ "w INTEGER NOT NULL, "
+        			+ "x INTEGER NOT NULL, "
+        			+ "y INTEGER NOT NULL, "
+        			+ "z INTEGER NOT NULL, "
+        			+ "key INTEGER, "
+        			+ "PRIMARY KEY (w, x, y, z));");
 
         	PreparedStatement pstmt = sqlConn.prepareStatement(
-        			"insert into doors values (?, ?, ?, ?);");
-        	pstmt.setInt(1, d.loc.getBlockX());
-        	pstmt.setInt(2, d.loc.getBlockY());
-        	pstmt.setInt(3, d.loc.getBlockZ());
-        	pstmt.setInt(4, d.key);
+        			"insert into doors values (?, ?, ?, ?, ?);");
+        	pstmt.setLong(1, d.loc.getWorld().getId());
+        	pstmt.setInt(2, d.loc.getBlockX());
+        	pstmt.setInt(3, d.loc.getBlockY());
+        	pstmt.setInt(4, d.loc.getBlockZ());
+        	pstmt.setInt(5, d.key);
         	pstmt.executeUpdate();
         } catch(Exception e) {
         } finally {
@@ -256,10 +275,11 @@ public class DoorRune extends Rune {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
         	PreparedStatement pstmt = sqlConn.prepareStatement(
-        			"delete from doors where x = ? and y = ? and z = ?");
-        	pstmt.setInt(1, d.loc.getBlockX());
-        	pstmt.setInt(2, d.loc.getBlockY());
-        	pstmt.setInt(3, d.loc.getBlockZ());
+        			"delete from doors where w = ? and x = ? and y = ? and z = ?");
+        	pstmt.setLong(1, d.loc.getWorld().getId());
+        	pstmt.setInt(2, d.loc.getBlockX());
+        	pstmt.setInt(3, d.loc.getBlockY());
+        	pstmt.setInt(4, d.loc.getBlockZ());
         	pstmt.executeUpdate();
         } catch(Exception e) {
         } finally {

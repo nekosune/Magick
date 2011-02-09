@@ -1,10 +1,8 @@
 package org.cvpcs.bukkit.magickraft.runes;
 
 import org.bukkit.event.block.BlockRightClickEvent;
-import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
 import org.bukkit.Location;
@@ -214,34 +212,7 @@ public class WaypointRune extends Rune {
 
         // look for a waypoint and see if it's a valid teleporter
         Waypoint wp = new Waypoint();
-        if(wp.load(block.getLocation())) {
-        	if(wp.mWaypointId >= 0) {
-        		if(wp.mIsTeleporter) {
-		        	// HOLY SHIT IT IS!  time to get our destination id
-		        	Waypoint dest = new Waypoint();
-		        	if(dest.load(wp.mWaypointId)) {
-		        		// load destination chunk
-		        		Block destBlock = block.getWorld().getBlockAt(
-								dest.mLocation.getBlockX(), dest.mLocation.getBlockY(), dest.mLocation.getBlockZ());
-
-		        		block.getWorld().loadChunk(block.getWorld().getChunkAt(destBlock));
-
-		        		while(!(destBlock.getTypeId() == Material.AIR.getId() &&
-		        				destBlock.getFace(BlockFace.DOWN, 1).getTypeId() == Material.AIR.getId())) {
-		        			destBlock = destBlock.getFace(BlockFace.UP, 1);
-		        		}
-
-		        		event.getPlayer().teleportTo(destBlock.getLocation());
-		        	} else {
-		        		event.getPlayer().sendMessage("Could not find the destination waypoint");
-		        	}
-        		} else {
-        			event.getPlayer().sendMessage("This is the destination waypoint, nothing happens");
-        		}
-        	} else if(wp.mIsTeleporter) {
-        		event.getPlayer().sendMessage("Waypoint casted but not connected yet");
-        	}
-        } else {
+        if(!wp.load(block.getLocation())) {
         	if(tryRune(block)) {
         		// we have a valid rune, time to do some shit!
         		wp.mIsTeleporter = (block.getTypeId() == TELEPORT_MATERIAL.getId());
@@ -259,20 +230,29 @@ public class WaypointRune extends Rune {
         				event.getPlayer().sendMessage("Waypoint casting failed: Another unregistered waypoint with the same identification already exists");
         				return false;
         			} else {
-        				// OH SHIT! LOOKS LIKE WE BE MAKIN A CONNECTION!
-        				wp.mWaypointId = sigCheck.mId;
-        				wp.save();
-        				wp.load(block.getLocation());
-        				sigCheck.mWaypointId = wp.mId;
-        				sigCheck.save();
+        				// make sure our signature dest world exists
+        				World sigWorld = sigCheck.mLocation.getWorld();
+        				if(sigWorld != null) {
+                    		Block sigBlock = sigWorld.getBlockAt(
+                    				sigCheck.mLocation.getBlockX(),
+                    				sigCheck.mLocation.getBlockY(),
+                    				sigCheck.mLocation.getBlockZ());
 
-                		Block sigBlock = block.getWorld().getBlockAt(
-                				sigCheck.mLocation.getBlockX(), sigCheck.mLocation.getBlockY(), sigCheck.mLocation.getBlockZ());
+            				// OH SHIT! LOOKS LIKE WE BE MAKIN A CONNECTION!
+            				wp.mWaypointId = sigCheck.mId;
+            				wp.save();
+            				wp.load(block.getLocation());
+            				sigCheck.mWaypointId = wp.mId;
+            				sigCheck.save();
 
-                		setWaypointBlock(block, Material.GLOWSTONE);
-                		setWaypointBlock(sigBlock, Material.GLOWSTONE);
+                    		setWaypointBlock(block, Material.GLOWSTONE);
+                    		setWaypointBlock(sigBlock, Material.GLOWSTONE);
 
-        				event.getPlayer().sendMessage("Waypoint successfully connected");
+            				event.getPlayer().sendMessage("Waypoint successfully connected");
+        				} else {
+        					// destination world not found and not connected, just delete and hope for the best
+        					sigCheck.delete();
+        				}
         			}
         		} else {
         			wp.save();
@@ -285,6 +265,66 @@ public class WaypointRune extends Rune {
 
     		return true;
     	}
+
+        return false;
+    }
+
+    @Override
+    public boolean onRuneUseRightClick(BlockRightClickEvent event) {
+        Block block = event.getBlock();
+
+        // look for a waypoint and see if it's a valid teleporter
+        Waypoint wp = new Waypoint();
+        if(wp.load(block.getLocation())) {
+        	if(wp.mWaypointId >= 0) {
+        		if(wp.mIsTeleporter) {
+		        	// HOLY SHIT IT IS!  time to get our destination id
+		        	Waypoint dest = new Waypoint();
+		        	if(dest.load(wp.mWaypointId)) {
+		        		// find our destination world
+		        		World destWorld = dest.mLocation.getWorld();
+		        		if(destWorld != null) {
+			        		// get our destination block
+			        		Block destBlock = destWorld.getBlockAt(
+									dest.mLocation.getBlockX(), dest.mLocation.getBlockY(), dest.mLocation.getBlockZ());
+
+			        		// load the destination chunk
+			        		destWorld.loadChunk(destWorld.getChunkAt(destBlock));
+
+			        		// continually raise the teleport destination up until we are in a "safe" zone
+			        		while(!(destBlock.getTypeId() == Material.AIR.getId() &&
+			        				destBlock.getFace(BlockFace.DOWN, 1).getTypeId() == Material.AIR.getId())) {
+			        			destBlock = destBlock.getFace(BlockFace.UP, 1);
+			        		}
+
+			        		// teleport!
+			        		event.getPlayer().teleportTo(destBlock.getLocation());
+		        		} else {
+		        			// the destination world can't be found, so wipe out that shit
+		        			dest.delete();
+
+			        		// turn off this teleporter, we can't find our destination
+			        		wp.mWaypointId = -1;
+			        		wp.save();
+			        		setWaypointBlock(block, Material.COBBLESTONE);
+
+			        		event.getPlayer().sendMessage("Could not find the destination waypoint, resetting teleporter");
+		        		}
+		        	} else {
+		        		// turn off this teleporter, we can't find our destination
+		        		wp.mWaypointId = -1;
+		        		wp.save();
+		        		setWaypointBlock(block, Material.COBBLESTONE);
+
+		        		event.getPlayer().sendMessage("Could not find the destination waypoint, resetting teleporter");
+		        	}
+        		} else {
+        			event.getPlayer().sendMessage("This is the destination waypoint, nothing happens");
+        		}
+        	} else if(wp.mIsTeleporter) {
+        		event.getPlayer().sendMessage("Waypoint casted but not connected yet");
+        	}
+        }
 
         return false;
     }
@@ -359,10 +399,11 @@ public class WaypointRune extends Rune {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
             	PreparedStatement stmt = sqlConn.prepareStatement(
-            			"select * from waypoints where x = ? and y = ? and z = ?;");
-            	stmt.setInt(1, loc.getBlockX());
-            	stmt.setInt(2, loc.getBlockY());
-            	stmt.setInt(3, loc.getBlockZ());
+            			"select * from waypoints where w = ? and x = ? and y = ? and z = ?;");
+            	stmt.setLong(1, loc.getWorld().getId());
+            	stmt.setInt(2, loc.getBlockX());
+            	stmt.setInt(3, loc.getBlockY());
+            	stmt.setInt(4, loc.getBlockZ());
 
             	ResultSet rs = stmt.executeQuery();
 
@@ -407,7 +448,9 @@ public class WaypointRune extends Rune {
             	ResultSet rs = stmt.executeQuery();
 
             	if(rs.next()) {
-            		mLocation = new Location(null, rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
+            		mLocation = new Location(
+            				WaypointRune.super.findWorld(rs.getLong("w")),
+            				rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
             		mId = rs.getInt("id");
             		mSignature = rs.getString("signature");
             		mWaypointId = rs.getInt("waypointid");
@@ -448,7 +491,9 @@ public class WaypointRune extends Rune {
             	ResultSet rs = stmt.executeQuery();
 
             	if(rs.next()) {
-            		mLocation = new Location(null, rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
+            		mLocation = new Location(
+            				WaypointRune.super.findWorld(rs.getLong("w")),
+            				rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
             		mId = rs.getInt("id");
             		mSignature = rs.getString("signature");
             		mWaypointId = rs.getInt("waypointid");
@@ -481,32 +526,39 @@ public class WaypointRune extends Rune {
 
             	Statement stmt = sqlConn.createStatement();
             	stmt.executeUpdate("create table if not exists waypoints ("
-            				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            				+ "x INTEGER, y INTEGER, z INTEGER, "
+            				+ "id INTEGER AUTOINCREMENT, "
+            				+ "w INTEGER NOT NULL, "
+            				+ "x INTEGER NOT NULL, "
+            				+ "y INTEGER NOT NULL, "
+            				+ "z INTEGER NOT NULL, "
             				+ "signature TEXT DEFAULT '', "
             				+ "waypointid INTEGER DEFAULT -1, "
-            				+ "isteleporter INTEGER DEFAULT 0);");
+            				+ "isteleporter INTEGER DEFAULT 0, "
+            				+ "PRIMARY KEY (id), "
+            				+ "UNIQUE (w, x, y, z));");
 
             	if(mId < 0) {
             		PreparedStatement pstmt = sqlConn.prepareStatement(
-	            		"insert into waypoints (x, y, z, signature, waypointid, isteleporter) values (?, ?, ?, ?, ?, ?);");
-	            	pstmt.setInt(1, mLocation.getBlockX());
-	            	pstmt.setInt(2, mLocation.getBlockY());
-	            	pstmt.setInt(3, mLocation.getBlockZ());
-	            	pstmt.setString(4, mSignature);
-	            	pstmt.setInt(5, mWaypointId);
-	            	pstmt.setInt(6, (mIsTeleporter ? 1 : 0));
+	            		"insert into waypoints (w, x, y, z, signature, waypointid, isteleporter) values (?, ?, ?, ?, ?, ?, ?);");
+            		pstmt.setLong(1, mLocation.getWorld().getId());
+	            	pstmt.setInt(2, mLocation.getBlockX());
+	            	pstmt.setInt(3, mLocation.getBlockY());
+	            	pstmt.setInt(4, mLocation.getBlockZ());
+	            	pstmt.setString(5, mSignature);
+	            	pstmt.setInt(6, mWaypointId);
+	            	pstmt.setInt(7, (mIsTeleporter ? 1 : 0));
 	            	pstmt.executeUpdate();
             	} else {
             		PreparedStatement pstmt = sqlConn.prepareStatement(
-	            		"update waypoints set x = ?, y = ?, z = ?, signature = ?, waypointid = ?, isteleporter = ? where id = ?;");
-	            	pstmt.setInt(1, mLocation.getBlockX());
-	            	pstmt.setInt(2, mLocation.getBlockY());
-	            	pstmt.setInt(3, mLocation.getBlockZ());
-	            	pstmt.setString(4, mSignature);
-	            	pstmt.setInt(5, mWaypointId);
-	            	pstmt.setInt(6, (mIsTeleporter ? 1 : 0));
-	            	pstmt.setInt(7, mId);
+	            		"update waypoints set w = ?, x = ?, y = ?, z = ?, signature = ?, waypointid = ?, isteleporter = ? where id = ?;");
+            		pstmt.setLong(1, mLocation.getWorld().getId());
+	            	pstmt.setInt(2, mLocation.getBlockX());
+	            	pstmt.setInt(3, mLocation.getBlockY());
+	            	pstmt.setInt(4, mLocation.getBlockZ());
+	            	pstmt.setString(5, mSignature);
+	            	pstmt.setInt(6, mWaypointId);
+	            	pstmt.setInt(7, (mIsTeleporter ? 1 : 0));
+	            	pstmt.setInt(8, mId);
 	            	pstmt.executeUpdate();
             	}
             } catch(Exception e) {

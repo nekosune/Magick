@@ -89,6 +89,7 @@ public class MagickBeaconRune extends Rune {
             if (tryRune(block)) {
         		// time to create a beacon!
         		beacon = new MagickBeacon();
+        		beacon.w = block.getWorld().getId();
         		beacon.x = block.getLocation().getBlockX();
         		beacon.z = block.getLocation().getBlockZ();
 
@@ -157,6 +158,7 @@ public class MagickBeaconRune extends Rune {
     }
 
     private class MagickBeacon {
+    	public long w;
     	public int x;
     	public int z;
     }
@@ -169,14 +171,16 @@ public class MagickBeaconRune extends Rune {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
         	PreparedStatement stmt = sqlConn.prepareStatement(
-        			"select * from beacons where x = ? and z = ?");
-        	stmt.setInt(1, loc.getBlockX());
-        	stmt.setInt(2, loc.getBlockZ());
+        			"select * from beacons where w = ? and x = ? and z = ?");
+        	stmt.setLong(1, loc.getWorld().getId());
+        	stmt.setInt(2, loc.getBlockX());
+        	stmt.setInt(3, loc.getBlockZ());
 
         	ResultSet rs = stmt.executeQuery();
 
         	if(rs.next()) {
         		b = new MagickBeacon();
+        		b.w = loc.getWorld().getId();
         		b.x = loc.getBlockX();
         		b.z = loc.getBlockZ();
         	}
@@ -201,12 +205,17 @@ public class MagickBeaconRune extends Rune {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
         	Statement stmt = sqlConn.createStatement();
-        	stmt.executeUpdate("create table if not exists beacons (x, z);");
+        	stmt.executeUpdate("create table if not exists beacons ("
+        			+ "w INTEGER NOT NULL, "
+        			+ "x INTEGER NOT NULL, "
+        			+ "z INTEGER NOT NULL, "
+        			+ "PRIMARY KEY (w, x, z));");
 
         	PreparedStatement pstmt = sqlConn.prepareStatement(
-        			"insert into beacons values (?, ?);");
-        	pstmt.setInt(1, b.x);
-        	pstmt.setInt(2, b.z);
+        			"insert into beacons values (?, ?, ?);");
+        	pstmt.setLong(1, b.w);
+        	pstmt.setInt(2, b.x);
+        	pstmt.setInt(3, b.z);
         	pstmt.executeUpdate();
         } catch(Exception e) {
         } finally {
@@ -225,9 +234,10 @@ public class MagickBeaconRune extends Rune {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
         	PreparedStatement pstmt = sqlConn.prepareStatement(
-        			"delete from beacons where x = ? and z = ?");
-        	pstmt.setInt(1, b.x);
-        	pstmt.setInt(2, b.z);
+        			"delete from beacons where w = ? and x = ? and z = ?");
+        	pstmt.setLong(1, b.w);
+        	pstmt.setInt(2, b.x);
+        	pstmt.setInt(3, b.z);
         	pstmt.executeUpdate();
         } catch(Exception e) {
         } finally {
