@@ -6,10 +6,10 @@ import org.bukkit.Material;
 
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
+import org.cvpcs.bukkit.magickraft.TierUtility;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
-import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 public class OracleRune extends Rune {
@@ -35,7 +35,7 @@ public class OracleRune extends Rune {
         Block block = event.getBlock();
 
         if (tryRune(block)) {
-        	int blockTier = RNTier.getTier(block);
+        	int blockTier = TierUtility.getTier(block);
 
             if(blockTier > -1) {
                 event.getPlayer().sendMessage("This block is tier " + blockTier + ".");

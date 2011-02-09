@@ -1,7 +1,8 @@
 package org.cvpcs.bukkit.magickraft.runes;
 
-import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.block.BlockFace;
@@ -9,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.Location;
 
 import org.cvpcs.bukkit.magickraft.Magickraft;
+import org.cvpcs.bukkit.magickraft.RedstoneUtility;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
@@ -164,6 +166,32 @@ public class DoorRune extends Rune {
     	}
 
         return false;
+    }
+
+    @Override
+    public boolean onRuneUseRedstone(BlockRedstoneEvent event) {
+    	for(Block block : RedstoneUtility.getAffectedBlocks(event)) {
+    		Door door = getDoor(block.getLocation());
+
+    		// only use redstone if the door exists and doesn't have a key
+    		if(door != null && door.key < 0) {
+    			// we have a door! change its status based on redstone event
+    			if(event.getNewCurrent() > 0) {
+    				// powered, open the door
+    				block.getFace(BlockFace.DOWN, 1).setType(Material.AIR);
+    				block.getFace(BlockFace.DOWN, 2).setType(Material.AIR);
+    			} else {
+    				// unpowered, close the door
+    				block.getFace(BlockFace.DOWN, 1).setType(block.getType());
+    				block.getFace(BlockFace.DOWN, 2).setType(block.getType());
+    			}
+    		}
+    	}
+
+    	// never report if we used redstone, as someone else might be using this
+    	// redstone event, since we are technically watching the blocks AROUND
+    	// the redstone, not the redstone itself
+    	return false;
     }
 
     @Override
