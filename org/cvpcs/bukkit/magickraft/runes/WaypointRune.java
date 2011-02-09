@@ -257,13 +257,14 @@ public class WaypointRune extends Rune {
         		} else {
         			wp.save();
 
+        			// set our waypoint blocks
         			setWaypointBlock(block, Material.COBBLESTONE);
 
         			event.getPlayer().sendMessage("Waypoint created and awaiting connection");
         		}
-        	}
 
-    		return true;
+        		return true;
+        	}
     	}
 
         return false;
@@ -526,7 +527,7 @@ public class WaypointRune extends Rune {
 
             	Statement stmt = sqlConn.createStatement();
             	stmt.executeUpdate("create table if not exists waypoints ("
-            				+ "id INTEGER AUTOINCREMENT, "
+            				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             				+ "w INTEGER NOT NULL, "
             				+ "x INTEGER NOT NULL, "
             				+ "y INTEGER NOT NULL, "
@@ -534,7 +535,6 @@ public class WaypointRune extends Rune {
             				+ "signature TEXT DEFAULT '', "
             				+ "waypointid INTEGER DEFAULT -1, "
             				+ "isteleporter INTEGER DEFAULT 0, "
-            				+ "PRIMARY KEY (id), "
             				+ "UNIQUE (w, x, y, z));");
 
             	if(mId < 0) {
