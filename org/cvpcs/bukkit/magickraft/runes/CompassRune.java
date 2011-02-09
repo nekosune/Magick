@@ -19,49 +19,50 @@ import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 public class CompassRune extends Rune {
-	
-	public static final String NAME = "compass";
-	
-    public CompassRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(3, 3, new IRuneNode[][]{
-        		{
-        			RNComplexAnd.getInstance(
-        					RNTier.getInstance(1),
-        					RNMaterialGroup.getInstance(0)),
-        				
-        			RNMaterial.getInstance(Material.AIR),
-        			
-        			RNComplexAnd.getInstance(
-        					RNTier.getInstance(1),
-        					RNMaterialGroup.getInstance(0)),
-        		},
-        		{
-    				RNMaterial.getInstance(Material.AIR),
 
-        			RNComplexAnd.getInstance(
-        					RNTier.getInstance(1),
-        					RNMaterialGroup.getInstance(0)),
-    			
-    				RNMaterial.getInstance(Material.AIR)
-        		},
-        		{
-        			RNComplexAnd.getInstance(
-        					RNTier.getInstance(1),
-        					RNMaterialGroup.getInstance(0)),
-        				
-        			RNMaterial.getInstance(Material.AIR),
-        			
-        			RNComplexAnd.getInstance(
-        					RNTier.getInstance(1),
-        					RNMaterialGroup.getInstance(0)),
-        		},
-        }));
+	public static final String NAME = "compass";
+
+    public CompassRune(Magickraft plugin) {
+        super(plugin, new RuneStructure(3, 3)
+        		.setRuneMap(new IRuneNode[][]{
+		        		{
+		        			RNComplexAnd.getInstance(
+		        					RNTier.getInstance(1),
+		        					RNMaterialGroup.getInstance(0)),
+
+		        			RNMaterial.getInstance(Material.AIR),
+
+		        			RNComplexAnd.getInstance(
+		        					RNTier.getInstance(1),
+		        					RNMaterialGroup.getInstance(0)),
+		        		},
+		        		{
+		    				RNMaterial.getInstance(Material.AIR),
+
+		        			RNComplexAnd.getInstance(
+		        					RNTier.getInstance(1),
+		        					RNMaterialGroup.getInstance(0)),
+
+		    				RNMaterial.getInstance(Material.AIR)
+		        		},
+		        		{
+		        			RNComplexAnd.getInstance(
+		        					RNTier.getInstance(1),
+		        					RNMaterialGroup.getInstance(0)),
+
+		        			RNMaterial.getInstance(Material.AIR),
+
+		        			RNComplexAnd.getInstance(
+		        					RNTier.getInstance(1),
+		        					RNMaterialGroup.getInstance(0)),
+		        		},
+        			}));
     }
-    
+
     @Override
     public boolean onRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();
-        
+
         if ((event.getItemInHand().getType()==Material.AIR || !event.getItemInHand().getType().isBlock()) &&
         		tryRune(block)) {
         	block.getFace(BlockFace.NORTH).setType(block.getType());
@@ -72,7 +73,7 @@ public class CompassRune extends Rune {
             block.getFace(BlockFace.NORTH_WEST).setType(Material.AIR);
             return true;
         }
-        
+
         return false;
     }
 }

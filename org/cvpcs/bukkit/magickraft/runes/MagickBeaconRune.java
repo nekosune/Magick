@@ -25,62 +25,64 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 
 public class MagickBeaconRune extends Rune {
-	
+
 	public static final String NAME = "magickbeacon";
-	
+
     public MagickBeaconRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(3, 3, new IRuneNode[][]{
-        	{
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-	
-				RNComplexAnd.getInstance(
-						RNTier.getInstance(1),
-						RNMaterialGroup.getInstance(1)),
+        super(plugin, new RuneStructure(3, 3)
+        		.setRuneMap(new IRuneNode[][]{
+			        	{
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-        	},
-        	{
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(1)),
-	
-				RNMaterial.getInstance(Material.GLOWSTONE),
+							RNComplexAnd.getInstance(
+									RNTier.getInstance(1),
+									RNMaterialGroup.getInstance(1)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(1)),
-        	},
-        	{
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-	
-				RNComplexAnd.getInstance(
-						RNTier.getInstance(1),
-						RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+			        	},
+			        	{
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(1)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-        	},
-       	}, new int[][] {
-        		{Material.AIR.getId(), Material.AIR.getId()      , Material.AIR.getId()},
-        		{Material.AIR.getId(), Material.GLOWSTONE.getId(), Material.AIR.getId()},
-        		{Material.AIR.getId(), Material.AIR.getId()      , Material.AIR.getId()},
-        }));
+							RNMaterial.getInstance(Material.GLOWSTONE),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(1)),
+			        	},
+			        	{
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+							RNComplexAnd.getInstance(
+									RNTier.getInstance(1),
+									RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+			        	},
+			       	})
+			    .setRuneConsumptionMap(new int[][] {
+		        		{Material.AIR.getId(), Material.AIR.getId()      , Material.AIR.getId()},
+		        		{Material.AIR.getId(), Material.GLOWSTONE.getId(), Material.AIR.getId()},
+		        		{Material.AIR.getId(), Material.AIR.getId()      , Material.AIR.getId()},
+			    	}));
     }
-    
+
     @Override
     public boolean onRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();
-        
+
         // look for a beacon
     	MagickBeacon beacon = getMagickBeacon(block.getLocation());
-    	
+
     	// wewt, we only care if there isn't a beacon
     	if(beacon == null) {
     		// no beacon, is the rune valid?
@@ -89,10 +91,10 @@ public class MagickBeaconRune extends Rune {
         		beacon = new MagickBeacon();
         		beacon.x = block.getLocation().getBlockX();
         		beacon.z = block.getLocation().getBlockZ();
-        		
+
         		// SAVE!
         		saveMagickBeacon(beacon);
-        		
+
         		// now we create the beacon itself
         		while(block.getLocation().getBlockY() < 127) {
     				if(block.getTypeId() == Material.AIR.getId()) {
@@ -107,28 +109,28 @@ public class MagickBeaconRune extends Rune {
     				}
         			block = block.getFace(BlockFace.DOWN, 1);
         		}
-        		
-        		
-        		event.getPlayer().sendMessage("Magick beacon created");	
-            		
+
+
+        		event.getPlayer().sendMessage("Magick beacon created");
+
                 return true;
             }
     	}
-    	
+
         return false;
     }
-    
+
     @Override
     public boolean onRuneDamage(BlockDamageEvent event) {
     	if(event.getDamageLevel() == BlockDamageLevel.BROKEN) {
     		Block block = event.getBlock();
     		MagickBeacon beacon = getMagickBeacon(block.getLocation());
-    		
+
     		if(beacon != null) {
     			deleteMagickBeacon(beacon);
     			event.getPlayer().sendMessage("Magick beacon destroyed");
-    			
-    			// players don't get minerals back for this 
+
+    			// players don't get minerals back for this
     			event.setCancelled(true);
 
         		// now we create the beacon itself
@@ -145,34 +147,34 @@ public class MagickBeaconRune extends Rune {
     				}
         			block = block.getFace(BlockFace.DOWN, 1);
         		}
-        		
-    			
+
+
     			return true;
     		}
     	}
-    	
+
     	return false;
     }
-    
+
     private class MagickBeacon {
     	public int x;
     	public int z;
     }
-    
+
     private MagickBeacon getMagickBeacon(Location loc) {
     	Connection sqlConn = null;
     	MagickBeacon b = null;
         File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-        	
+
         	PreparedStatement stmt = sqlConn.prepareStatement(
         			"select * from beacons where x = ? and z = ?");
         	stmt.setInt(1, loc.getBlockX());
         	stmt.setInt(2, loc.getBlockZ());
-        	
+
         	ResultSet rs = stmt.executeQuery();
-        	
+
         	if(rs.next()) {
         		b = new MagickBeacon();
         		b.x = loc.getBlockX();
@@ -188,25 +190,25 @@ public class MagickBeaconRune extends Rune {
         		} catch(Exception e) { }
         	}
         }
-        
+
         return b;
     }
-    
+
     private void saveMagickBeacon(MagickBeacon b) {
     	Connection sqlConn = null;
         File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-        	
+
         	Statement stmt = sqlConn.createStatement();
         	stmt.executeUpdate("create table if not exists beacons (x, z);");
-        	
+
         	PreparedStatement pstmt = sqlConn.prepareStatement(
         			"insert into beacons values (?, ?);");
         	pstmt.setInt(1, b.x);
         	pstmt.setInt(2, b.z);
         	pstmt.executeUpdate();
-        } catch(Exception e) { 
+        } catch(Exception e) {
         } finally {
         	if(sqlConn != null) {
         		try {
@@ -215,19 +217,19 @@ public class MagickBeaconRune extends Rune {
         	}
         }
     }
-    
+
     private void deleteMagickBeacon(MagickBeacon b) {
     	Connection sqlConn = null;
         File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-        	
+
         	PreparedStatement pstmt = sqlConn.prepareStatement(
         			"delete from beacons where x = ? and z = ?");
         	pstmt.setInt(1, b.x);
         	pstmt.setInt(2, b.z);
         	pstmt.executeUpdate();
-        } catch(Exception e) { 
+        } catch(Exception e) {
         } finally {
         	if(sqlConn != null) {
         		try {

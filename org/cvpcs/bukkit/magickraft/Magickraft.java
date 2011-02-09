@@ -26,15 +26,15 @@ import java.util.Map;
 public class Magickraft extends JavaPlugin {
 	// a list of all of our runes
 	public static final HashMap<String, Rune> RUNES = new HashMap<String, Rune>();
-	
+
 	public static MagickraftConfig CONFIG = null;
-	
+
     private RuneRunner runeRunner;
-    
+
     public Magickraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
         CONFIG = new MagickraftConfig(this);
-        
+
         RUNES.clear();
         RUNES.put(OracleRune.NAME, new OracleRune(this));
         RUNES.put(CompassRune.NAME, new CompassRune(this));
@@ -42,7 +42,7 @@ public class Magickraft extends JavaPlugin {
         RUNES.put(DoorRune.NAME, new DoorRune(this));
         RUNES.put(MagickBeaconRune.NAME, new MagickBeaconRune(this));
         RUNES.put(WaypointRune.NAME, new WaypointRune(this));
-        
+
         runeRunner = new RuneRunner();
     }
 
@@ -54,14 +54,14 @@ public class Magickraft extends JavaPlugin {
     	for(Map.Entry<String, Rune> entry : RUNES.entrySet()) {
     		entry.getValue().setEnabled(CONFIG.getRuneBoolean(entry.getKey(), MagickraftConfig.RUNE_ENABLED_KEY));
     	}
-        
+
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, runeRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_DAMAGED, runeRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.REDSTONE_CHANGE, runeRunner, Priority.Normal, this);
-        
+
         Log("loaded!");
     }
-    
+
     public static void Log(String s) {
     	System.out.println("[Magickraft]: " + s);
     }

@@ -8,10 +8,10 @@ import java.util.HashMap;
 public class RNMaterial implements IRuneNode {
 
 	private static final HashMap<Integer, RNMaterial> INSTANCES = new HashMap<Integer, RNMaterial>();
-	
+
 	public static IRuneNode getInstance(Material m) {
 		Integer typeId = Integer.valueOf(m.getId());
-		
+
 		if(INSTANCES.containsKey(typeId)) {
 			return INSTANCES.get(typeId);
 		} else {
@@ -20,13 +20,13 @@ public class RNMaterial implements IRuneNode {
 			return rnm;
 		}
 	}
-	
+
 	private int mMaterialId;
-	
+
 	private RNMaterial(Material m) {
 		mMaterialId = m.getId();
 	}
-	
+
 	@Override
 	public boolean isValid(Block b) {
 		return (b.getTypeId() == mMaterialId);
@@ -36,5 +36,5 @@ public class RNMaterial implements IRuneNode {
 	public String toString() {
 		return "RNMaterial[" + mMaterialId + "]";
 	}
-	
+
 }

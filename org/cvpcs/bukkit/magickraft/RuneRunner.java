@@ -18,7 +18,7 @@ import java.util.HashMap;
  * @author chris.stewart
  */
 public class RuneRunner extends BlockListener
-{    
+{
     @Override
     public void onBlockRightClick(BlockRightClickEvent event)
     {

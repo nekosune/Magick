@@ -8,10 +8,10 @@ import org.bukkit.block.Block;
 public class RNTier implements IRuneNode {
 
 	private static final HashMap<Integer, RNTier> INSTANCES = new HashMap<Integer, RNTier>();
-	
+
 	public static IRuneNode getInstance(int t) {
 		Integer tier = Integer.valueOf(t);
-		
+
 		if(INSTANCES.containsKey(tier)) {
 			return INSTANCES.get(tier);
 		} else {
@@ -20,7 +20,7 @@ public class RNTier implements IRuneNode {
 			return rnt;
 		}
 	}
-	
+
 	private static final int MAX_TIER = 6;
     private static final HashMap<Integer, Integer> TIERS = new HashMap<Integer, Integer>();
     static {
@@ -84,16 +84,16 @@ public class RNTier implements IRuneNode {
         // tier 6
         TIERS.put(Material.DIAMOND_BLOCK.getId(), 6);
     }
-    
+
     private int mTier;
-    
+
     private RNTier(int tier) {
     	// highest value is 6, so don't allow tiers higher
     	if(tier > MAX_TIER) {
     		tier = MAX_TIER;
     	}
     }
-	
+
 	@Override
 	public boolean isValid(Block b) {
 		return (getTier(b) >= mTier);
@@ -104,10 +104,10 @@ public class RNTier implements IRuneNode {
 		if(TIERS.containsKey(b.getTypeId())) {
 			bTier = TIERS.get(b.getTypeId());
 		}
-		
+
 		return bTier;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "RNTier[" + mTier + "]";

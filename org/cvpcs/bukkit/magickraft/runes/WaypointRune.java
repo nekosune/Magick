@@ -29,188 +29,189 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 
 public class WaypointRune extends Rune {
-	
+
 	public static final String NAME = "waypoint";
-	
+
 	public static final Material WAYPOINT_MATERIAL = Material.GOLD_BLOCK;
 	public static final Material TELEPORT_MATERIAL = Material.OBSIDIAN;
-	
+
     public WaypointRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(7, 7, new IRuneNode[][]{
-    		{
-    			RNAnything.getInstance(),
-    			RNAnything.getInstance(),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
+        super(plugin, new RuneStructure(7, 7)
+        		.setRuneMap(new IRuneNode[][]{
+			    		{
+			    			RNAnything.getInstance(),
+			    			RNAnything.getInstance(),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNAnything.getInstance(),
-    			RNAnything.getInstance(),
-    		},
-    		{
-    			RNAnything.getInstance(),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    	    					
-    			RNAnything.getInstance(),
-    		},
-    		{
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNAnything.getInstance(),
+			    			RNAnything.getInstance(),
+			    		},
+			    		{
+			    			RNAnything.getInstance(),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    					
-    			RNAnything.getInstance(),
-    	    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    		},
-    		{
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
 
-    			RNAnything.getInstance(),
-    			
-    			RNComplexOr.getInstance(
-    					RNMaterial.getInstance(WAYPOINT_MATERIAL),
-    					RNMaterial.getInstance(TELEPORT_MATERIAL)),
-    			
-    			RNAnything.getInstance(),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    		},
-    		{
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    					
-    			RNAnything.getInstance(),
-    	    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    		},
-    		{
-    			RNAnything.getInstance(),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNAnything.getInstance(),
+			    		},
+			    		{
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(2),
-    					RNMaterialGroup.getInstance(1)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    	    					
-    			RNAnything.getInstance(),
-    		},
-    		{
-    			RNAnything.getInstance(),
-    			RNAnything.getInstance(),
-    			
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
 
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
-    					
-    			RNComplexAnd.getInstance(
-    					RNTier.getInstance(1),
-    					RNMaterialGroup.getInstance(0)),
+			    			RNAnything.getInstance(),
 
-    			RNAnything.getInstance(),
-    			RNAnything.getInstance(),
-    		},
-        }));
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+			    		},
+			    		{
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNAnything.getInstance(),
+
+			    			RNComplexOr.getInstance(
+			    					RNMaterial.getInstance(WAYPOINT_MATERIAL),
+			    					RNMaterial.getInstance(TELEPORT_MATERIAL)),
+
+			    			RNAnything.getInstance(),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+			    		},
+			    		{
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNAnything.getInstance(),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+			    		},
+			    		{
+			    			RNAnything.getInstance(),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(2),
+			    					RNMaterialGroup.getInstance(1)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNAnything.getInstance(),
+			    		},
+			    		{
+			    			RNAnything.getInstance(),
+			    			RNAnything.getInstance(),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNComplexAnd.getInstance(
+			    					RNTier.getInstance(1),
+			    					RNMaterialGroup.getInstance(0)),
+
+			    			RNAnything.getInstance(),
+			    			RNAnything.getInstance(),
+			    		},
+			        }));
     }
-    
+
     @Override
     public boolean onRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();
-        
+
         // look for a waypoint and see if it's a valid teleporter
         Waypoint wp = new Waypoint();
         if(wp.load(block.getLocation())) {
@@ -222,14 +223,14 @@ public class WaypointRune extends Rune {
 		        		// load destination chunk
 		        		Block destBlock = block.getWorld().getBlockAt(
 								dest.mLocation.getBlockX(), dest.mLocation.getBlockY(), dest.mLocation.getBlockZ());
-		        		
+
 		        		block.getWorld().loadChunk(block.getWorld().getChunkAt(destBlock));
-		        		
+
 		        		while(!(destBlock.getTypeId() == Material.AIR.getId() &&
 		        				destBlock.getFace(BlockFace.DOWN, 1).getTypeId() == Material.AIR.getId())) {
 		        			destBlock = destBlock.getFace(BlockFace.UP, 1);
 		        		}
-		        		
+
 		        		event.getPlayer().teleportTo(destBlock.getLocation());
 		        	} else {
 		        		event.getPlayer().sendMessage("Could not find the destination waypoint");
@@ -249,7 +250,7 @@ public class WaypointRune extends Rune {
         				+ block.getFace(BlockFace.EAST, 1).getType().toString() + "."
         				+ block.getFace(BlockFace.SOUTH, 1).getType().toString() + "."
         				+ block.getFace(BlockFace.WEST, 1).getType().toString();
-        		
+
         		// search to make sure another waypoint with this signature doesn't exist
         		Waypoint sigCheck = new Waypoint();
         		if(sigCheck.load(wp.mSignature)) {
@@ -267,27 +268,27 @@ public class WaypointRune extends Rune {
 
                 		Block sigBlock = block.getWorld().getBlockAt(
                 				sigCheck.mLocation.getBlockX(), sigCheck.mLocation.getBlockY(), sigCheck.mLocation.getBlockZ());
-                		
+
                 		setWaypointBlock(block, Material.GLOWSTONE);
                 		setWaypointBlock(sigBlock, Material.GLOWSTONE);
-        				
+
         				event.getPlayer().sendMessage("Waypoint successfully connected");
         			}
         		} else {
         			wp.save();
-        			
+
         			setWaypointBlock(block, Material.COBBLESTONE);
-        			
+
         			event.getPlayer().sendMessage("Waypoint created and awaiting connection");
         		}
         	}
-    		
+
     		return true;
     	}
-        
+
         return false;
     }
-    
+
     private void setWaypointBlock(Block block, Material mat) {
     	// make sure we are talking about a valid waypoint
     	if(tryRune(block)) {
@@ -295,42 +296,42 @@ public class WaypointRune extends Rune {
     		nBlock.setType(mat);
     		nBlock.getFace(BlockFace.WEST, 1).setType(mat);
     		nBlock.getFace(BlockFace.EAST, 1).setType(mat);
-    		
+
     		Block eBlock = block.getFace(BlockFace.EAST, 2);
     		eBlock.setType(mat);
     		eBlock.getFace(BlockFace.NORTH, 1).setType(mat);
     		eBlock.getFace(BlockFace.SOUTH, 1).setType(mat);
-    		
+
     		Block sBlock = block.getFace(BlockFace.SOUTH, 2);
     		sBlock.setType(mat);
     		sBlock.getFace(BlockFace.WEST, 1).setType(mat);
     		sBlock.getFace(BlockFace.EAST, 1).setType(mat);
-    		
+
     		Block wBlock = block.getFace(BlockFace.WEST, 2);
     		wBlock.setType(mat);
     		wBlock.getFace(BlockFace.NORTH, 1).setType(mat);
     		wBlock.getFace(BlockFace.SOUTH, 1).setType(mat);
     	}
     }
-    
+
     @Override
     public boolean onRuneDamage(BlockDamageEvent event) {/*
     	if(event.getDamageLevel() == BlockDamageLevel.BROKEN) {
     		Block block = event.getBlock();
     		Door door = null;
-    		
+
     		for(int i = 0; i < 3 && door == null; i++) {
     			block = event.getBlock().getFace(BlockFace.UP, i);
     			door = getDoor(block.getLocation());
     		}
-    		
+
     		if(door != null) {
     			deleteDoor(door);
     			event.getPlayer().sendMessage("Door rune destroyed");
-    			
-    			// players don't get minerals back for this 
+
+    			// players don't get minerals back for this
     			event.setCancelled(true);
-    			
+
     			// wipe out the door
     			block.setType(Material.AIR);
     			block.getFace(BlockFace.DOWN, 1).setType(Material.AIR);
@@ -338,17 +339,17 @@ public class WaypointRune extends Rune {
     			return true;
     		}
     	}*/
-    	
+
     	return false;
     }
-    
+
     private class Waypoint {
     	public int mId = -1;
     	public Location mLocation;
     	public String mSignature;
     	public int mWaypointId = -1;
     	public boolean mIsTeleporter = false;
-    	
+
     	public boolean load(Location loc) {
         	boolean loaded = false;
 
@@ -356,15 +357,15 @@ public class WaypointRune extends Rune {
             File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-            	
+
             	PreparedStatement stmt = sqlConn.prepareStatement(
             			"select * from waypoints where x = ? and y = ? and z = ?;");
             	stmt.setInt(1, loc.getBlockX());
             	stmt.setInt(2, loc.getBlockY());
             	stmt.setInt(3, loc.getBlockZ());
-            	
+
             	ResultSet rs = stmt.executeQuery();
-            	
+
             	if(rs.next()) {
             		mLocation = loc;
             		mId = rs.getInt("id");
@@ -383,14 +384,14 @@ public class WaypointRune extends Rune {
             		} catch(Exception e) { }
             	}
             }
-            
+
             if(!loaded) {
             	mId = -1;
             }
-            
+
             return loaded;
     	}
-    	
+
     	public boolean load(int id) {
         	boolean loaded = false;
 
@@ -398,13 +399,13 @@ public class WaypointRune extends Rune {
             File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-            	
+
             	PreparedStatement stmt = sqlConn.prepareStatement(
             			"select * from waypoints where id = ?;");
             	stmt.setInt(1, id);
-            	
+
             	ResultSet rs = stmt.executeQuery();
-            	
+
             	if(rs.next()) {
             		mLocation = new Location(null, rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
             		mId = rs.getInt("id");
@@ -423,15 +424,15 @@ public class WaypointRune extends Rune {
             		} catch(Exception e) { }
             	}
             }
-            
+
             if(!loaded) {
             	mId = -1;
             }
-            
+
             return loaded;
     	}
 
-    	
+
     	public boolean load(String signature) {
         	boolean loaded = false;
 
@@ -439,13 +440,13 @@ public class WaypointRune extends Rune {
             File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-            	
+
             	PreparedStatement stmt = sqlConn.prepareStatement(
             			"select * from waypoints where signature = ? and waypointid < 0;");
             	stmt.setString(1, signature);
-            	
+
             	ResultSet rs = stmt.executeQuery();
-            	
+
             	if(rs.next()) {
             		mLocation = new Location(null, rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
             		mId = rs.getInt("id");
@@ -464,11 +465,11 @@ public class WaypointRune extends Rune {
             		} catch(Exception e) { }
             	}
             }
-            
+
             if(!loaded) {
             	mId = -1;
             }
-            
+
             return loaded;
     	}
 
@@ -477,7 +478,7 @@ public class WaypointRune extends Rune {
             File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-            	
+
             	Statement stmt = sqlConn.createStatement();
             	stmt.executeUpdate("create table if not exists waypoints ("
             				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -485,7 +486,7 @@ public class WaypointRune extends Rune {
             				+ "signature TEXT DEFAULT '', "
             				+ "waypointid INTEGER DEFAULT -1, "
             				+ "isteleporter INTEGER DEFAULT 0);");
-            	
+
             	if(mId < 0) {
             		PreparedStatement pstmt = sqlConn.prepareStatement(
 	            		"insert into waypoints (x, y, z, signature, waypointid, isteleporter) values (?, ?, ?, ?, ?, ?);");
@@ -518,18 +519,18 @@ public class WaypointRune extends Rune {
             	}
             }
         }
-        
+
         public void delete() {
         	Connection sqlConn = null;
             File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
-            	
+
             	PreparedStatement pstmt = sqlConn.prepareStatement(
             			"delete from waypoints where id = ?;");
             	pstmt.setInt(1, mId);
             	pstmt.executeUpdate();
-            } catch(Exception e) { 
+            } catch(Exception e) {
             } finally {
             	if(sqlConn != null) {
             		try {

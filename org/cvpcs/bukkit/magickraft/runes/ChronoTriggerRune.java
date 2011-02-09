@@ -21,33 +21,36 @@ import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 public class ChronoTriggerRune extends Rune
 {
 	public static final String NAME = "chronotrigger";
-	
+
     public ChronoTriggerRune(Magickraft plugin)
     {
-        super(plugin, new RuneStructure(3, 3, 3, 2, new IRuneNode[][][]{
-        		{
-        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
-        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-        		},
-        		{
-        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
-        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-        		},
-        		{
-        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.GOLD_BLOCK)   , RNMaterial.getInstance(Material.OBSIDIAN)},
-        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.DIAMOND_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)},
-        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)     , RNMaterial.getInstance(Material.OBSIDIAN)},
-        		},
-            }));
+        super(plugin, new RuneStructure(3, 3, 3)
+        		.setClickHeight(2)
+        		.setRuneMap(new IRuneNode[][][]{
+		        		{
+		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+		        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
+		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+		        		},
+		        		{
+		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+		        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
+		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+		        		},
+		        		{
+		        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.GOLD_BLOCK)   , RNMaterial.getInstance(Material.GOLD_BLOCK)},
+		        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.DIAMOND_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)},
+		        			{RNMaterial.getInstance(Material.OBSIDIAN), RNMaterial.getInstance(Material.OBSIDIAN)     , RNMaterial.getInstance(Material.OBSIDIAN)},
+		        		},
+        			})
+        		.setAllowedRotation(RuneStructure.Rotation.NORTH));
     }
 
     @Override
     public boolean onRuneRightClick(BlockRightClickEvent event)
     {
         Block block = event.getBlock();
-        
+
         if (canChrono(block))
         {
             if (block.getY()<108)
@@ -141,7 +144,7 @@ public class ChronoTriggerRune extends Rune
         }
         return false;
     }
-    
+
     private boolean canChrono(Block block)
     {
         int redCount=0;
@@ -161,7 +164,7 @@ public class ChronoTriggerRune extends Rune
         return
             (tryRune(block));
     }
-    
+
     private boolean hasCeiling(Block block)
     {
         for(int i=-1;i<2;i++)

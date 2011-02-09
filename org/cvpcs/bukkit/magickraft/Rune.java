@@ -29,18 +29,18 @@ public abstract class Rune
     public boolean isRuneRightClickUsingBlock(BlockRightClickEvent event) {
         return false;
     }
-    
+
     public boolean isRuneDamageUsingBlock(BlockDamageEvent event) {
         return false;
     }
-    
+
     public boolean isRuneRedstoneUsingBlock(BlockRedstoneEvent event) {
         return false;
     }
-    
+
     public boolean getEnabled() { return this.mEnabled; }
     public void setEnabled(boolean enabled) { this.mEnabled = enabled; }
-    
+
     protected boolean tryRune(Block b) {
     	return mStructure.tryRune(b);
     }
