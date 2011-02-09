@@ -3,6 +3,7 @@ package org.cvpcs.bukkit.magickraft.runes;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
 import org.bukkit.Location;
@@ -30,11 +31,13 @@ public class WaypointRune extends Rune {
 
 	public static final String NAME = "waypoint";
 
-	public static final Material WAYPOINT_MATERIAL = Material.GOLD_BLOCK;
-	public static final Material TELEPORT_MATERIAL = Material.OBSIDIAN;
+	private static final Material WAYPOINT_MATERIAL = Material.GOLD_BLOCK;
+	private static final Material TELEPORT_MATERIAL = Material.OBSIDIAN;
+
+	private static final int RUNE_WIDTH = 7;
 
     public WaypointRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(7, 7)
+        super(plugin, new RuneStructure(RUNE_WIDTH, RUNE_WIDTH)
         		.setRuneMap(new IRuneNode[][]{
 			    		{
 			    			RNAnything.getInstance(),
@@ -233,11 +236,6 @@ public class WaypointRune extends Rune {
         				// make sure our signature dest world exists
         				World sigWorld = sigCheck.mLocation.getWorld();
         				if(sigWorld != null) {
-                    		Block sigBlock = sigWorld.getBlockAt(
-                    				sigCheck.mLocation.getBlockX(),
-                    				sigCheck.mLocation.getBlockY(),
-                    				sigCheck.mLocation.getBlockZ());
-
             				// OH SHIT! LOOKS LIKE WE BE MAKIN A CONNECTION!
             				wp.mWaypointId = sigCheck.mId;
             				wp.save();
@@ -245,8 +243,8 @@ public class WaypointRune extends Rune {
             				sigCheck.mWaypointId = wp.mId;
             				sigCheck.save();
 
-                    		setWaypointBlock(block, Material.GLOWSTONE);
-                    		setWaypointBlock(sigBlock, Material.GLOWSTONE);
+                    		setWaypointBlock(wp, Material.GLOWSTONE);
+                    		setWaypointBlock(sigCheck, Material.GLOWSTONE);
 
             				event.getPlayer().sendMessage("Waypoint successfully connected");
         				} else {
@@ -258,7 +256,7 @@ public class WaypointRune extends Rune {
         			wp.save();
 
         			// set our waypoint blocks
-        			setWaypointBlock(block, Material.COBBLESTONE);
+        			setWaypointBlock(wp, Material.COBBLESTONE);
 
         			event.getPlayer().sendMessage("Waypoint created and awaiting connection");
         		}
@@ -307,7 +305,7 @@ public class WaypointRune extends Rune {
 			        		// turn off this teleporter, we can't find our destination
 			        		wp.mWaypointId = -1;
 			        		wp.save();
-			        		setWaypointBlock(block, Material.COBBLESTONE);
+			        		setWaypointBlock(wp, Material.COBBLESTONE);
 
 			        		event.getPlayer().sendMessage("Could not find the destination waypoint, resetting teleporter");
 		        		}
@@ -315,7 +313,7 @@ public class WaypointRune extends Rune {
 		        		// turn off this teleporter, we can't find our destination
 		        		wp.mWaypointId = -1;
 		        		wp.save();
-		        		setWaypointBlock(block, Material.COBBLESTONE);
+		        		setWaypointBlock(wp, Material.COBBLESTONE);
 
 		        		event.getPlayer().sendMessage("Could not find the destination waypoint, resetting teleporter");
 		        	}
@@ -330,56 +328,133 @@ public class WaypointRune extends Rune {
         return false;
     }
 
-    private void setWaypointBlock(Block block, Material mat) {
-    	// make sure we are talking about a valid waypoint
-    	if(tryRune(block)) {
-    		Block nBlock = block.getFace(BlockFace.NORTH, 2);
-    		nBlock.setType(mat);
-    		nBlock.getFace(BlockFace.WEST, 1).setType(mat);
-    		nBlock.getFace(BlockFace.EAST, 1).setType(mat);
+    private void setWaypointBlockAll(Waypoint wp, Material mat) {
+    	int radius = (RUNE_WIDTH - 1)/2;
 
-    		Block eBlock = block.getFace(BlockFace.EAST, 2);
-    		eBlock.setType(mat);
-    		eBlock.getFace(BlockFace.NORTH, 1).setType(mat);
-    		eBlock.getFace(BlockFace.SOUTH, 1).setType(mat);
+		int wx = wp.mLocation.getBlockX();
+		int wz = wp.mLocation.getBlockZ();
 
-    		Block sBlock = block.getFace(BlockFace.SOUTH, 2);
-    		sBlock.setType(mat);
-    		sBlock.getFace(BlockFace.WEST, 1).setType(mat);
-    		sBlock.getFace(BlockFace.EAST, 1).setType(mat);
+		// we'll need this later
+		World wpWorld = wp.mLocation.getWorld();
 
-    		Block wBlock = block.getFace(BlockFace.WEST, 2);
-    		wBlock.setType(mat);
-    		wBlock.getFace(BlockFace.NORTH, 1).setType(mat);
-    		wBlock.getFace(BlockFace.SOUTH, 1).setType(mat);
-    	}
+		// this should always be true, but check anyway
+		if(wpWorld != null) {
+    		// time to find the corner block for our rune
+    		int cx = wx - radius;
+    		int cz = wz - radius;
+
+    		// now we cycle and change shit to cobblestone!
+    		for(int i = 0; i < RUNE_WIDTH; i++) {
+    			for(int j = 0; j < RUNE_WIDTH; j++) {
+    				int tx = cx + i;
+    				int tz = cz + j;
+
+    				if(Math.round(Math.sqrt(
+    						Math.pow(wx - tx, 2) + Math.pow(wz - tz, 2)
+    						)) <= radius) {
+    					// gotta get this block and set it to cobblestone!
+    					Block b = wpWorld.getBlockAt(tx, wp.mLocation.getBlockY(), tz);
+    					b.setType(mat);
+    				}
+    			}
+    		}
+		}
+    }
+
+    private void setWaypointBlock(Waypoint wp, Material mat) {
+		World wpWorld = wp.mLocation.getWorld();
+
+		if(wpWorld != null) {
+			Block block = wpWorld.getBlockAt(
+					wp.mLocation.getBlockX(),
+					wp.mLocation.getBlockY(),
+					wp.mLocation.getBlockZ());
+
+	    	// make sure we are talking about a valid waypoint
+	    	if(tryRune(block)) {
+	    		Block nBlock = block.getFace(BlockFace.NORTH, 2);
+	    		nBlock.setType(mat);
+	    		nBlock.getFace(BlockFace.WEST, 1).setType(mat);
+	    		nBlock.getFace(BlockFace.EAST, 1).setType(mat);
+
+	    		Block eBlock = block.getFace(BlockFace.EAST, 2);
+	    		eBlock.setType(mat);
+	    		eBlock.getFace(BlockFace.NORTH, 1).setType(mat);
+	    		eBlock.getFace(BlockFace.SOUTH, 1).setType(mat);
+
+	    		Block sBlock = block.getFace(BlockFace.SOUTH, 2);
+	    		sBlock.setType(mat);
+	    		sBlock.getFace(BlockFace.WEST, 1).setType(mat);
+	    		sBlock.getFace(BlockFace.EAST, 1).setType(mat);
+
+	    		Block wBlock = block.getFace(BlockFace.WEST, 2);
+	    		wBlock.setType(mat);
+	    		wBlock.getFace(BlockFace.NORTH, 1).setType(mat);
+	    		wBlock.getFace(BlockFace.SOUTH, 1).setType(mat);
+	    	}
+		}
     }
 
     @Override
-    public boolean onRuneDamage(BlockDamageEvent event) {/*
+    public boolean onRuneDamage(BlockDamageEvent event) {
+    	// only care if destroying the block
     	if(event.getDamageLevel() == BlockDamageLevel.BROKEN) {
-    		Block block = event.getBlock();
-    		Door door = null;
+	    	Block block = event.getBlock();
 
-    		for(int i = 0; i < 3 && door == null; i++) {
-    			block = event.getBlock().getFace(BlockFace.UP, i);
-    			door = getDoor(block.getLocation());
-    		}
+	    	int radius = (RUNE_WIDTH - 1)/2;
 
-    		if(door != null) {
-    			deleteDoor(door);
-    			event.getPlayer().sendMessage("Door rune destroyed");
+	    	// are we destroying a waypoint?
+	    	Waypoint wp = new Waypoint();
+	    	if(wp.findAndLoad(block.getLocation(), radius)) {
+	    		// to save time and processing power, we determine if they're destroying a part of the
+	    		// waypoint based on mathematics, and not straight comparison of the rune
+	    		int bx = block.getLocation().getBlockX();
+	    		int bz = block.getLocation().getBlockZ();
+	    		int wx = wp.mLocation.getBlockX();
+	    		int wz = wp.mLocation.getBlockZ();
 
-    			// players don't get minerals back for this
-    			event.setCancelled(true);
+	    		double dist = Math.sqrt(Math.pow(wx - bx, 2) + Math.pow(wz - bz, 2));
 
-    			// wipe out the door
-    			block.setType(Material.AIR);
-    			block.getFace(BlockFace.DOWN, 1).setType(Material.AIR);
-    			block.getFace(BlockFace.DOWN, 2).setType(Material.AIR);
-    			return true;
-    		}
-    	}*/
+	    		// if dist == 1, then we are at one of the signature blocks, which we allow people to replace,
+	    		// so let it go this time
+	    		if(dist == 1) {
+	    			return true;
+	    		}
+
+	    		// if the rounded distance is > radius, we are out of bounds and good to go
+	    		if(dist > radius) {
+	    			return true;
+	    		}
+
+	    		// damn, shit is going down disable the destruction
+	    		event.setCancelled(true);
+
+	    		// set the waypoint to cobblestone
+	    		setWaypointBlockAll(wp, Material.COBBLESTONE);
+
+	    		// set the block we destroyed to air
+	    		block.setType(Material.AIR);
+
+	    		// was this waypoint connected?
+	    		if(wp.mWaypointId >= 0) {
+	    			// SHIT, need to destroy the other end too
+	    			Waypoint wpOther = new Waypoint();
+	    			if(wpOther.load(wp.mWaypointId)) {
+	    				// reset its blocks to cobblestone
+	    				setWaypointBlockAll(wpOther, Material.COBBLESTONE);
+
+	    				// delete
+	    				wpOther.delete();
+	    			}
+	    		}
+
+	    		// lastly, delete this waypoint
+	    		wp.delete();
+
+	    		// submit a message to the player
+	    		event.getPlayer().sendMessage("Waypoint destroyed");
+	    	}
+    	}
 
     	return false;
     }
@@ -390,6 +465,65 @@ public class WaypointRune extends Rune {
     	public String mSignature;
     	public int mWaypointId = -1;
     	public boolean mIsTeleporter = false;
+
+    	public boolean findAndLoad(Location loc, int radius) {
+        	boolean loaded = false;
+
+        	Connection sqlConn = null;
+            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            try {
+            	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
+
+            	PreparedStatement stmt = sqlConn.prepareStatement(
+            			"select * from waypoints where "
+            			+ "w = ? and "
+            			+ "y = ? and "
+            			+ "(x - ?) <= ? and "
+            			+ "? <= (x + ?) and "
+            			+ "(z - ?) <= ? and "
+            			+ "? <= (z + ?);");
+
+            	stmt.setLong(1, loc.getWorld().getId());
+            	stmt.setInt(2, loc.getBlockY());
+
+            	stmt.setInt(3, radius);
+            	stmt.setInt(4, loc.getBlockX());
+            	stmt.setInt(5, loc.getBlockX());
+            	stmt.setInt(6, radius);
+
+            	stmt.setInt(7, radius);
+            	stmt.setInt(8, loc.getBlockZ());
+            	stmt.setInt(9, loc.getBlockZ());
+            	stmt.setInt(10, radius);
+
+            	ResultSet rs = stmt.executeQuery();
+
+            	if(rs.next()) {
+            		mLocation = new Location(findWorld(rs.getLong("w")),
+            				rs.getInt("x"), rs.getInt("y"), rs.getInt("z"));
+            		mId = rs.getInt("id");
+            		mSignature = rs.getString("signature");
+            		mWaypointId = rs.getInt("waypointid");
+            		mIsTeleporter = (rs.getInt("isteleporter") == 1);
+            		loaded = true;
+            	}
+            	rs.close();
+            } catch(Exception e) {
+            	loaded = false;
+            } finally {
+            	if(sqlConn != null) {
+            		try {
+            			sqlConn.close();
+            		} catch(Exception e) { }
+            	}
+            }
+
+            if(!loaded) {
+            	mId = -1;
+            }
+
+            return loaded;
+    	}
 
     	public boolean load(Location loc) {
         	boolean loaded = false;
