@@ -6,7 +6,31 @@ import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class RuneRunner extends BlockListener {
+
+	private List<Rune> mRunes;
+
+	public RuneRunner() {
+		unloadRunes();
+	}
+
+	public RuneRunner(Collection<Rune> runes) {
+		loadRunes(runes);
+	}
+
+	public void loadRunes(Collection<Rune> runes) {
+		mRunes = new ArrayList<Rune>(runes);
+		Collections.sort(mRunes);
+	}
+
+	public void unloadRunes() {
+		mRunes = new ArrayList<Rune>();
+	}
 
     @Override
     public void onBlockRightClick(BlockRightClickEvent event)
@@ -17,7 +41,7 @@ public class RuneRunner extends BlockListener {
     		return;
     	}
 
-        for(Rune rune : Magickraft.RUNES.values()) {
+        for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneUseRightClick(event)) {
                     return;
@@ -25,7 +49,7 @@ public class RuneRunner extends BlockListener {
             }
         }
 
-        for(Rune rune : Magickraft.RUNES.values()) {
+        for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneRightClick(event)) {
                     return;
@@ -36,7 +60,7 @@ public class RuneRunner extends BlockListener {
 
     @Override
     public void onBlockDamage(BlockDamageEvent event) {
-        for(Rune rune : Magickraft.RUNES.values()) {
+        for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneUseDamage(event)) {
                     return;
@@ -44,7 +68,7 @@ public class RuneRunner extends BlockListener {
             }
         }
 
-        for(Rune rune:Magickraft.RUNES.values()) {
+        for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneDamage(event)) {
                     return;
@@ -55,7 +79,7 @@ public class RuneRunner extends BlockListener {
 
     @Override
     public void onBlockRedstoneChange(BlockRedstoneEvent event) {
-        for(Rune rune:Magickraft.RUNES.values()) {
+        for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneUseRedstone(event)) {
                     return;
@@ -63,7 +87,7 @@ public class RuneRunner extends BlockListener {
             }
         }
 
-        for(Rune rune:Magickraft.RUNES.values()) {
+        for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneRedstone(event)) {
                     return;

@@ -6,9 +6,12 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.World;
 
+import java.lang.Comparable;
+
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 public abstract class Rune
+		implements Comparable<Rune>
 {
     protected Magickraft mPlugin;
     private RuneStructure mStructure;
@@ -45,6 +48,10 @@ public abstract class Rune
 
     public boolean getEnabled() { return this.mEnabled; }
     public void setEnabled(boolean enabled) { this.mEnabled = enabled; }
+
+    public int getSize() {
+    	return mStructure.getSize();
+    }
 
     /**
      * Try a rune and return whether or not it was found.  If the rune was found the
@@ -88,5 +95,11 @@ public abstract class Rune
     	}
 
     	return null;
+    }
+
+    // comparable interface
+    public int compareTo(Rune rune) {
+    	// we want sorting to be largest to smallest, so reverse this
+    	return this.getSize() - rune.getSize();
     }
 }

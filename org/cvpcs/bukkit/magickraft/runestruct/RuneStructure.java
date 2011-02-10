@@ -124,6 +124,10 @@ public class RuneStructure {
 		}
 	}
 
+	public int getSize() {
+		return mWidth * mLength * mHeight;
+	}
+
 	public boolean tryRune(Block block) {
 		// check all rotations
 		for(Rotation r : mAllowedRotations) {

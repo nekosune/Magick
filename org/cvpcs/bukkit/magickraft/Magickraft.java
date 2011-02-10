@@ -17,6 +17,7 @@ import org.cvpcs.bukkit.magickraft.runes.WaypointRune;
 
 import java.io.File;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class Magickraft extends JavaPlugin {
 
 	public static MagickraftConfig CONFIG = null;
 
-    private RuneRunner runeRunner;
+    private RuneRunner mRuneRunner;
 
     public Magickraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
@@ -41,10 +42,12 @@ public class Magickraft extends JavaPlugin {
         RUNES.put(WaypointRune.NAME, new WaypointRune(this));
         RUNES.put(MineshaftRune.NAME, new MineshaftRune(this));
 
-        runeRunner = new RuneRunner();
+        mRuneRunner = new RuneRunner();
     }
 
     public void onDisable() {
+    	mRuneRunner.unloadRunes();
+
         Log("unloaded!");
     }
 
@@ -53,9 +56,11 @@ public class Magickraft extends JavaPlugin {
     		entry.getValue().setEnabled(CONFIG.getRuneBoolean(entry.getKey(), MagickraftConfig.RUNE_ENABLED_KEY));
     	}
 
-        getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, runeRunner, Priority.Normal, this);
-        getServer().getPluginManager().registerEvent(Event.Type.BLOCK_DAMAGED, runeRunner, Priority.Normal, this);
-        getServer().getPluginManager().registerEvent(Event.Type.REDSTONE_CHANGE, runeRunner, Priority.Normal, this);
+        getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, mRuneRunner, Priority.Normal, this);
+        getServer().getPluginManager().registerEvent(Event.Type.BLOCK_DAMAGED, mRuneRunner, Priority.Normal, this);
+        getServer().getPluginManager().registerEvent(Event.Type.REDSTONE_CHANGE, mRuneRunner, Priority.Normal, this);
+
+        mRuneRunner.loadRunes(RUNES.values());
 
         Log("loaded!");
     }
