@@ -1,4 +1,4 @@
-package org.cvpcs.bukkit.magickraft.runes;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -10,6 +10,7 @@ import org.bukkit.Location;
 
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
+import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
@@ -28,8 +29,8 @@ public class MagickBeaconRune extends Rune {
 
 	public static final String NAME = "magickbeacon";
 
-    public MagickBeaconRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(3, 3)
+    public MagickBeaconRune(Magickraft plugin, RuneSet set) {
+        super(plugin, set, new RuneStructure(3, 3)
         		.setRuneMap(new IRuneNode[][]{
 			        	{
 			    			RNComplexAnd.getInstance(
@@ -168,7 +169,7 @@ public class MagickBeaconRune extends Rune {
     private MagickBeacon getMagickBeacon(Location loc) {
     	Connection sqlConn = null;
     	MagickBeacon b = null;
-        File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+        File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -202,7 +203,7 @@ public class MagickBeaconRune extends Rune {
 
     private void saveMagickBeacon(MagickBeacon b) {
     	Connection sqlConn = null;
-        File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+        File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -231,7 +232,7 @@ public class MagickBeaconRune extends Rune {
 
     private void deleteMagickBeacon(MagickBeacon b) {
     	Connection sqlConn = null;
-        File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+        File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 

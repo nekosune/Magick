@@ -26,7 +26,7 @@ public class RuneSetLoader {
 
 	private final Map<String, Class<?>> mClasses = new HashMap<String, Class<?>>();
 
-	public RuneSet loadRuneSet(File file)
+	public RuneSet loadRuneSet(Magickraft plugin, File file)
 			throws InvalidRuneSetException {
 		RuneSet result = null;
 		String runeSetClassName = null;
@@ -65,9 +65,9 @@ public class RuneSetLoader {
             ClassLoader loader = new RuneSetClassLoader(this, new URL[]{file.toURI().toURL()}, getClass().getClassLoader());
             Class<?> jarClass = Class.forName(runeSetClassName, true, loader);
             Class<? extends RuneSet> runeSet = jarClass.asSubclass(RuneSet.class);
-            Constructor<? extends RuneSet> constructor = runeSet.getConstructor();
+            Constructor<? extends RuneSet> constructor = runeSet.getConstructor(Magickraft.class);
 
-            result = constructor.newInstance();
+            result = constructor.newInstance(plugin);
         } catch (Throwable ex) {
             throw new InvalidRuneSetException(ex);
         }

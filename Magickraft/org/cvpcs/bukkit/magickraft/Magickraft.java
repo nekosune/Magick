@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 public class Magickraft extends JavaPlugin {
 	// a list of all rune sets
 	private static final HashMap<String, RuneSet> RUNE_SETS = new HashMap<String, RuneSet>();
-	private static final String RUNE_SET_DIRNAME = "runesets";
 	private static final RuneSetLoader mRuneSetLoader = new RuneSetLoader();
 
 	public static MagickraftConfig CONFIG = null;
@@ -65,7 +64,7 @@ public class Magickraft extends JavaPlugin {
     	RUNE_SETS.clear();
 
     	// load all of the available rune sets
-        for(File runeSetFile : new File(getDataFolder(), RUNE_SET_DIRNAME).listFiles()) {
+        for(File runeSetFile : new File(getDataFolder(), RuneSet.RUNE_SET_DIRNAME).listFiles()) {
         	boolean isRuneSetFile = false;
 
         	for(Pattern p : mRuneSetLoader.getRuneSetFileFilters()) {
@@ -79,7 +78,7 @@ public class Magickraft extends JavaPlugin {
         		// we have a runeset file, try to load it
         		RuneSet rs = null;
         		try {
-	        		rs = mRuneSetLoader.loadRuneSet(runeSetFile);
+	        		rs = mRuneSetLoader.loadRuneSet(this, runeSetFile);
         		} catch(InvalidRuneSetException e) {
         			Log("ERROR: Inavlid rune set found ... skipping");
         			e.printStackTrace();

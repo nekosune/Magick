@@ -1,4 +1,4 @@
-package org.cvpcs.bukkit.magickraft.runes;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.block.Block;
@@ -7,6 +7,7 @@ import org.bukkit.Material;
 
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
+import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.TierUtility;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
@@ -22,8 +23,8 @@ public class MineshaftRune extends Rune {
 	private static final int LEVELS_PER_TIER = 8;
 	private static final int MIN_LEVEL = 5;
 
-    public MineshaftRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(7, 7, 5)
+    public MineshaftRune(Magickraft plugin, RuneSet set) {
+        super(plugin, set, new RuneStructure(7, 7, 5)
         		.setRuneMap(new IRuneNode[][][]{
         				{//1
         					{//1

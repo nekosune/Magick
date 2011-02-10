@@ -1,11 +1,25 @@
 package org.cvpcs.bukkit.magickraft;
 
+import java.io.File;
 import java.util.List;
 
 public abstract class RuneSet {
+	public static final String RUNE_SET_DIRNAME = "runesets";
+
+	protected Magickraft mPlugin;
+
+	public RuneSet(Magickraft plugin) {
+		mPlugin = plugin;
+	}
+
 	// returns a unique name for this rune set
 	public abstract String getName();
 
 	// returns a list of runes for this rune set
 	public abstract List<Rune> getRunes();
+
+	// returns the data directory this runeset can use
+	public File getDataFolder() {
+		return new File(new File(mPlugin.getDataFolder(), RUNE_SET_DIRNAME), getName());
+	}
 }

@@ -1,4 +1,4 @@
-package org.cvpcs.bukkit.magickraft.runes;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.block.Block;
@@ -7,6 +7,7 @@ import org.bukkit.Material;
 
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
+import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
@@ -18,8 +19,8 @@ public class CompassRune extends Rune {
 
 	public static final String NAME = "compass";
 
-    public CompassRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(3, 3)
+    public CompassRune(Magickraft plugin, RuneSet set) {
+        super(plugin, set, new RuneStructure(3, 3)
         		.setRuneMap(new IRuneNode[][]{
 		        		{
 		        			RNComplexAnd.getInstance(

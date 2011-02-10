@@ -1,4 +1,4 @@
-package org.cvpcs.bukkit.magickraft.runes;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -11,6 +11,7 @@ import org.bukkit.World;
 
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
+import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
@@ -36,8 +37,8 @@ public class WaypointRune extends Rune {
 
 	private static final int RUNE_WIDTH = 7;
 
-    public WaypointRune(Magickraft plugin) {
-        super(plugin, new RuneStructure(RUNE_WIDTH, RUNE_WIDTH)
+    public WaypointRune(Magickraft plugin, RuneSet set) {
+        super(plugin, set, new RuneStructure(RUNE_WIDTH, RUNE_WIDTH)
         		.setRuneMap(new IRuneNode[][]{
 			    		{
 			    			RNAnything.getInstance(),
@@ -472,7 +473,7 @@ public class WaypointRune extends Rune {
         	boolean loaded = false;
 
         	Connection sqlConn = null;
-            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -531,7 +532,7 @@ public class WaypointRune extends Rune {
         	boolean loaded = false;
 
         	Connection sqlConn = null;
-            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -574,7 +575,7 @@ public class WaypointRune extends Rune {
         	boolean loaded = false;
 
         	Connection sqlConn = null;
-            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -617,7 +618,7 @@ public class WaypointRune extends Rune {
         	boolean loaded = false;
 
         	Connection sqlConn = null;
-            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -657,7 +658,7 @@ public class WaypointRune extends Rune {
 
         public void save() {
         	Connection sqlConn = null;
-            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 
@@ -710,7 +711,7 @@ public class WaypointRune extends Rune {
 
         public void delete() {
         	Connection sqlConn = null;
-            File dbfile = new File(mPlugin.getDataFolder(), NAME + ".db");
+            File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
             try {
             	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
 

@@ -3,13 +3,14 @@
  * and open the template in the editor.
  */
 
-package org.cvpcs.bukkit.magickraft.runes;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
+import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
@@ -22,9 +23,9 @@ public class ChronoTriggerRune extends Rune
 {
 	public static final String NAME = "chronotrigger";
 
-    public ChronoTriggerRune(Magickraft plugin)
+    public ChronoTriggerRune(Magickraft plugin, RuneSet set)
     {
-        super(plugin, new RuneStructure(3, 3, 3)
+        super(plugin, set, new RuneStructure(3, 3, 3)
         		.setClickHeight(2)
         		.setRuneMap(new IRuneNode[][][]{
 		        		{

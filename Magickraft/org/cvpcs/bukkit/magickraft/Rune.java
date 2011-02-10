@@ -13,12 +13,14 @@ import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 public abstract class Rune
 		implements Comparable<Rune>
 {
-    protected Magickraft mPlugin;
+    private Magickraft mPlugin;
+    private RuneSet mRuneSet;
     private RuneStructure mStructure;
     private boolean mEnabled;
 
-    public Rune(Magickraft plugin, RuneStructure struct) {
+    public Rune(Magickraft plugin, RuneSet set, RuneStructure struct) {
         mPlugin = plugin;
+        mRuneSet = set;
         mStructure = struct;
     }
 
@@ -54,6 +56,9 @@ public abstract class Rune
     public int getSize() {
     	return mStructure.getSize();
     }
+
+    protected Magickraft getPlugin() { return mPlugin; }
+    protected RuneSet getRuneSet() { return mRuneSet; }
 
     /**
      * Try a rune and return whether or not it was found.  If the rune was found the
