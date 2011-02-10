@@ -1,4 +1,4 @@
-package org.cvpcs.bukkit.magickraft;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import java.util.HashMap;
 

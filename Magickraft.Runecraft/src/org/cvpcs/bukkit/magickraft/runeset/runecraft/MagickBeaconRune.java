@@ -15,7 +15,6 @@ import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterialGroup;
-import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 import java.io.File;

@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.RuneSet;
-import org.cvpcs.bukkit.magickraft.TierUtility;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;

@@ -11,12 +11,15 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class Magickraft extends JavaPlugin {
 	// a list of all rune sets
 	private static final HashMap<String, RuneSet> RUNE_SETS = new HashMap<String, RuneSet>();
-	private static final RuneSetLoader mRuneSetLoader = new RuneSetLoader();
+	private static final RuneSetLoader RUNE_SET_LOADER = new RuneSetLoader();
+
+	private static final Logger log = Logger.getLogger("Minecraft");
 
 	public static MagickraftConfig CONFIG = null;
 
@@ -34,7 +37,7 @@ public class Magickraft extends JavaPlugin {
     public void onDisable() {
     	mRuneRunner.unloadRunes();
 
-        Log("unloaded!");
+        log.info("unloaded!");
     }
 
     public void onEnable() {
@@ -45,30 +48,34 @@ public class Magickraft extends JavaPlugin {
     	ArrayList<Rune> runes = new ArrayList<Rune>();
 
     	for(RuneSet rs : RUNE_SETS.values()) {
-    		for(Rune entry : rs.getRunes()) {
-    			entry.setEnabled(CONFIG.getRuneSetsRunesBoolean(rs.getName(), entry.getName(), MagickraftConfig.RUNESETS_RUNES_ENABLED_KEY));
-    			runes.add(entry);
+    		log.info("Loading runes from rune set [" + rs.getName() + "]");
+    		for(Rune rune : rs.getRunes()) {
+    			boolean enable = CONFIG.getRuneSetsRunesBoolean(rs.getName(), rune.getName(), MagickraftConfig.RUNESETS_RUNES_ENABLED_KEY);
+
+    			log.info("  Loading rune [" + rune.getName() + "]: " + (enable ? "enabled" : "disabled"));
+
+    			rune.setEnabled(enable);
+    			runes.add(rune);
     		}
     	}
 
         mRuneRunner.loadRunes(runes);
 
-        Log("loaded!");
-    }
-
-    public static void Log(String s) {
-    	System.out.println("[Magickraft]: " + s);
+        log.info(getDescription().getName() + " v" + getDescription().getVersion() + " loaded!");
     }
 
     private void loadRuneSets() {
     	RUNE_SETS.clear();
 
-    	// load all of the available rune sets
-        for(File runeSetFile : new File(getDataFolder(), RuneSet.RUNE_SET_DIRNAME).listFiles()) {
-        	boolean isRuneSetFile = false;
+    	// create our rune set dir
+    	File runeSetDir = new File(getDataFolder(), RuneSet.RUNE_SET_DIRNAME);
+    	runeSetDir.mkdirs();
 
-        	for(Pattern p : mRuneSetLoader.getRuneSetFileFilters()) {
-        		if(p.matcher(runeSetFile.getAbsolutePath()).matches()) {
+    	// load all of the available rune sets
+        for(File runeSetFile : runeSetDir.listFiles()) {
+        	boolean isRuneSetFile = false;
+        	for(Pattern p : RUNE_SET_LOADER.getRuneSetFileFilters()) {
+        		if(p.matcher(runeSetFile.getAbsolutePath()).find()) {
         			isRuneSetFile = true;
         			break;
         		}
@@ -78,18 +85,18 @@ public class Magickraft extends JavaPlugin {
         		// we have a runeset file, try to load it
         		RuneSet rs = null;
         		try {
-	        		rs = mRuneSetLoader.loadRuneSet(this, runeSetFile);
+	        		rs = RUNE_SET_LOADER.loadRuneSet(this, runeSetFile);
         		} catch(InvalidRuneSetException e) {
-        			Log("ERROR: Inavlid rune set found ... skipping");
+        			log.severe("ERROR: Inavlid rune set found ... skipping");
         			e.printStackTrace();
         		}
 
         		if(rs != null) {
         			if(!RUNE_SETS.containsKey(rs.getName())) {
-        				Log("Loaded rune set [" + rs.getName() + "]");
+        				log.info("Loaded rune set [" + rs.getName() + "]");
         				RUNE_SETS.put(rs.getName(), rs);
         			} else {
-        				Log("ERROR: Another rune set by name [" + rs.getName() + "] already loaded, skipping this one");
+        				log.warning("ERROR: Another rune set by name [" + rs.getName() + "] already loaded, skipping this one");
         			}
         		}
         	}

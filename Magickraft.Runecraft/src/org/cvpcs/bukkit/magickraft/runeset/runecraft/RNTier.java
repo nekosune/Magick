@@ -1,10 +1,10 @@
-package org.cvpcs.bukkit.magickraft.runestruct;
+package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import java.util.HashMap;
 
 import org.bukkit.block.Block;
 
-import org.cvpcs.bukkit.magickraft.TierUtility;
+import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 
 public class RNTier implements IRuneNode {
 

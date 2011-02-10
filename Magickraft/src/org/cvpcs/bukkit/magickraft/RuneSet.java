@@ -6,10 +6,14 @@ import java.util.List;
 public abstract class RuneSet {
 	public static final String RUNE_SET_DIRNAME = "runesets";
 
-	protected Magickraft mPlugin;
+	private File mDataFolder;
 
 	public RuneSet(Magickraft plugin) {
-		mPlugin = plugin;
+		mDataFolder = new File(
+				new File(plugin.getDataFolder(), RUNE_SET_DIRNAME),
+				getName());
+
+		mDataFolder.mkdirs();
 	}
 
 	// returns a unique name for this rune set
@@ -19,7 +23,5 @@ public abstract class RuneSet {
 	public abstract List<Rune> getRunes();
 
 	// returns the data directory this runeset can use
-	public File getDataFolder() {
-		return new File(new File(mPlugin.getDataFolder(), RUNE_SET_DIRNAME), getName());
-	}
+	public File getDataFolder() { return mDataFolder; }
 }
