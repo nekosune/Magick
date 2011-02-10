@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.cvpcs.bukkit.magickraft.runes;
+
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

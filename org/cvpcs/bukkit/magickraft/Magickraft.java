@@ -11,6 +11,7 @@ import org.cvpcs.bukkit.magickraft.runes.MagickBeaconRune;
 import org.cvpcs.bukkit.magickraft.runes.ChronoTriggerRune;
 import org.cvpcs.bukkit.magickraft.runes.CompassRune;
 import org.cvpcs.bukkit.magickraft.runes.DoorRune;
+import org.cvpcs.bukkit.magickraft.runes.MineshaftRune;
 import org.cvpcs.bukkit.magickraft.runes.OracleRune;
 import org.cvpcs.bukkit.magickraft.runes.WaypointRune;
 
@@ -19,10 +20,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author UserXP
- */
 public class Magickraft extends JavaPlugin {
 	// a list of all of our runes
 	public static final HashMap<String, Rune> RUNES = new HashMap<String, Rune>();
@@ -42,6 +39,7 @@ public class Magickraft extends JavaPlugin {
         RUNES.put(DoorRune.NAME, new DoorRune(this));
         RUNES.put(MagickBeaconRune.NAME, new MagickBeaconRune(this));
         RUNES.put(WaypointRune.NAME, new WaypointRune(this));
+        RUNES.put(MineshaftRune.NAME, new MineshaftRune(this));
 
         runeRunner = new RuneRunner();
     }
