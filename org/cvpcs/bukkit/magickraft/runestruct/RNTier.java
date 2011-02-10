@@ -35,7 +35,7 @@ public class RNTier implements IRuneNode {
 
 	@Override
 	public boolean isValid(Block b) {
-		return (TierUtility.getTier(b) >= mTier);
+		return (mTier >= TierUtility.getTier(b));
 	}
 
 	@Override
