@@ -1,4 +1,4 @@
-package org.cvpcs.bukkit.magickraft.runeset.runecraft;
+package org.cvpcs.bukkit.magickraft.runeset.magickraft;
 
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -9,9 +9,11 @@ import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import org.cvpcs.bukkit.magickraft.BlockUtility;
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.RuneSet;
+import org.cvpcs.bukkit.magickraft.runeset.runecraft.RNTier;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
@@ -334,6 +336,7 @@ public class WaypointRune extends Rune {
     	int radius = (RUNE_WIDTH - 1)/2;
 
 		int wx = wp.mLocation.getBlockX();
+		int wy = wp.mLocation.getBlockY();
 		int wz = wp.mLocation.getBlockZ();
 
 		// we'll need this later
@@ -341,26 +344,12 @@ public class WaypointRune extends Rune {
 
 		// this should always be true, but check anyway
 		if(wpWorld != null) {
-    		// time to find the corner block for our rune
-    		int cx = wx - radius;
-    		int cz = wz - radius;
+			// gotta get this block and set it to cobblestone!
+			Block b = wpWorld.getBlockAt(wx, wy, wz);
 
-    		// now we cycle and change shit to cobblestone!
-    		for(int i = 0; i < RUNE_WIDTH; i++) {
-    			for(int j = 0; j < RUNE_WIDTH; j++) {
-    				int tx = cx + i;
-    				int tz = cz + j;
-
-    				if(Math.round(Math.sqrt(
-    						Math.pow(wx - tx, 2) + Math.pow(wz - tz, 2)
-    						)) <= radius) {
-    					// gotta get this block and set it to cobblestone!
-    					Block b = wpWorld.getBlockAt(tx, wp.mLocation.getBlockY(), tz);
-    					b.setType(mat);
-    				}
-    			}
-    		}
-		}
+			// set our blocks to cobblestone
+			BlockUtility.setCircleBlocks(b, radius, BlockUtility.Axis.Y, Material.COBBLESTONE);
+    	}
     }
 
     private void setWaypointBlock(Waypoint wp, Material mat) {

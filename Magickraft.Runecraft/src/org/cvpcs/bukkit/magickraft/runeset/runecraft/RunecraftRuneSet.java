@@ -23,7 +23,6 @@ public class RunecraftRuneSet extends RuneSet {
 		mRunes.add(new MagickBeaconRune(plugin, this));
 		mRunes.add(new MineshaftRune(plugin, this)); // done
 		mRunes.add(new OracleRune(plugin, this)); // done
-		mRunes.add(new WaypointRune(plugin, this)); // needs to be redone to match runecraft
 	}
 
 	@Override

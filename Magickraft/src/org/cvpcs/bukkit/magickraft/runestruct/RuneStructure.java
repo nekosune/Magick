@@ -128,7 +128,7 @@ public class RuneStructure {
 		return mWidth * mLength * mHeight;
 	}
 
-	public boolean tryRune(Block block) {
+	public boolean tryRune(Block block, boolean performConsumption) {
 		// check all rotations
 		for(Rotation r : mAllowedRotations) {
 			boolean found = true;
@@ -175,26 +175,26 @@ public class RuneStructure {
 
 			// did we validate all height levels?
 			if(found) {
-				// we did! time to consume!
+				if(performConsumption) {
+					// now we start consuming
+					for(int h = 0; h < mHeight; h++) {
+						// tlBlock for this height
+						Block hBlock = tlBlock.getFace(BlockFace.UP, h);
 
-				// now we start consuming
-				for(int h = 0; h < mHeight; h++) {
-					// tlBlock for this height
-					Block hBlock = tlBlock.getFace(BlockFace.UP, h);
+						for(int l = 0; l < mLength; l++) {
+							// hBlock for this row
+							Block lBlock = hBlock.getFace(getDirection(BlockFace.SOUTH, r), l);
 
-					for(int l = 0; l < mLength; l++) {
-						// hBlock for this row
-						Block lBlock = hBlock.getFace(getDirection(BlockFace.SOUTH, r), l);
+							for(int w = 0; w < mWidth; w++) {
+								// block to test
+								Block wBlock = lBlock.getFace(getDirection(BlockFace.EAST, r), w);
 
-						for(int w = 0; w < mWidth; w++) {
-							// block to test
-							Block wBlock = lBlock.getFace(getDirection(BlockFace.EAST, r), w);
+								int consumeValue = mRuneConsumptionMap[h][l][w];
 
-							int consumeValue = mRuneConsumptionMap[h][l][w];
-
-							if(consumeValue >= 0) {
-								// it's consumin' time!
-								wBlock.setType(Material.getMaterial(consumeValue));
+								if(consumeValue >= 0) {
+									// it's consumin' time!
+									wBlock.setType(Material.getMaterial(consumeValue));
+								}
 							}
 						}
 					}

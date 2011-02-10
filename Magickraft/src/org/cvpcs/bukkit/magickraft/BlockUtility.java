@@ -129,8 +129,8 @@ public class BlockUtility {
     			for(int j = 0; j < diameter; j++) {
     				for(int k = 0; k < diameter; k++) {
     					int tx = cx + i;
-    					int ty = cy + i;
-    					int tz = cz + i;
+    					int ty = cy + j;
+    					int tz = cz + k;
 
 	    				if(Math.round(Math.sqrt(
 	    						Math.pow(bx - tx, 2) + Math.pow(by - ty, 2) + Math.pow(bz - tz, 2)

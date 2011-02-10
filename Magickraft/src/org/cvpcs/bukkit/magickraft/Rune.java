@@ -69,7 +69,19 @@ public abstract class Rune
      * @return true if the rune was ran, false otherwise
      */
     protected boolean tryRune(Block b) {
-    	return mStructure.tryRune(b);
+    	return mStructure.tryRune(b, true);
+    }
+
+    /**
+     * Try a rune and return whether or not it was found.  If the rune was found the
+     * consumption constraints will not be run against it.
+     *
+     * @param b The block to consider as the "clickable" block in the rune.
+     *
+     * @return true if the rune was ran, false otherwise
+     */
+    protected boolean tryRuneWithoutConsumption(Block b) {
+    	return mStructure.tryRune(b, false);
     }
 
     /**
