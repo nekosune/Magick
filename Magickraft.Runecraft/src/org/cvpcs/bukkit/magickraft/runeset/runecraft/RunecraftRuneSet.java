@@ -16,13 +16,14 @@ public class RunecraftRuneSet extends RuneSet {
 	public RunecraftRuneSet(Magickraft plugin) {
 		super(plugin);
 
-		mRunes.add(new ChronoTriggerRune(plugin, this));
-		mRunes.add(new CompassRune(plugin, this));
+		mRunes.add(new ChronoTriggerRune(plugin, this)); // done
+		mRunes.add(new CompassRune(plugin, this)); // done
 		mRunes.add(new DoorRune(plugin, this));
+		mRunes.add(new FreezerRune(plugin, this)); // done
 		mRunes.add(new MagickBeaconRune(plugin, this));
-		mRunes.add(new MineshaftRune(plugin, this));
-		mRunes.add(new OracleRune(plugin, this));
-		mRunes.add(new WaypointRune(plugin, this));
+		mRunes.add(new MineshaftRune(plugin, this)); // done
+		mRunes.add(new OracleRune(plugin, this)); // done
+		mRunes.add(new WaypointRune(plugin, this)); // needs to be redone to match runecraft
 	}
 
 	@Override
