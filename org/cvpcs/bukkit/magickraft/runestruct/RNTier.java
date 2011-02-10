@@ -27,9 +27,11 @@ public class RNTier implements IRuneNode {
     private RNTier(int tier) {
     	int max_tier = TierUtility.getMaxTier();
 
-    	// highest value is 6, so don't allow tiers higher
+    	// don't allow tiers higher than the highest value
     	if(tier > max_tier) {
-    		tier = max_tier;
+    		mTier = max_tier;
+    	} else {
+    		mTier = tier;
     	}
     }
 
