@@ -100,6 +100,6 @@ public abstract class Rune
     // comparable interface
     public int compareTo(Rune rune) {
     	// we want sorting to be largest to smallest, so reverse this
-    	return this.getSize() - rune.getSize();
+    	return rune.getSize() - this.getSize();
     }
 }

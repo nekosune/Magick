@@ -47,9 +47,9 @@ public class MineshaftRune extends Rune {
         					{//3
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         						RNMaterial.getInstance(Material.AIR),
-        						RNMaterial.getInstance(Material.REDSTONE_TORCH_ON),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
-        						RNMaterial.getInstance(Material.REDSTONE_TORCH_ON),
+        						RNMaterial.getInstance(Material.REDSTONE_WIRE),
+        						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         					},
@@ -65,9 +65,9 @@ public class MineshaftRune extends Rune {
         					{//5
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         						RNMaterial.getInstance(Material.AIR),
-        						RNMaterial.getInstance(Material.REDSTONE_TORCH_ON),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
-        						RNMaterial.getInstance(Material.REDSTONE_TORCH_ON),
+        						RNMaterial.getInstance(Material.REDSTONE_WIRE),
+        						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         					},
