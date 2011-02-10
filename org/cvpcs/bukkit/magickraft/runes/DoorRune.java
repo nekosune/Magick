@@ -86,6 +86,8 @@ public class DoorRune extends Rune {
 		        	}));
     }
 
+    public String getName() { return NAME; }
+
     @Override
     public boolean onRuneRightClick(BlockRightClickEvent event) {
         Block block = event.getBlock();

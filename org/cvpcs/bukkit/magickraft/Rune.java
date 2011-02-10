@@ -22,6 +22,8 @@ public abstract class Rune
         mStructure = struct;
     }
 
+    public abstract String getName();
+
     public boolean onRuneRightClick(BlockRightClickEvent event) {
         return false;
     }

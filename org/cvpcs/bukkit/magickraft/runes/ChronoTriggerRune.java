@@ -46,6 +46,8 @@ public class ChronoTriggerRune extends Rune
         		.setAllowedRotation(RuneStructure.Rotation.NORTH));
     }
 
+    public String getName() { return NAME; }
+
     @Override
     public boolean onRuneRightClick(BlockRightClickEvent event)
     {

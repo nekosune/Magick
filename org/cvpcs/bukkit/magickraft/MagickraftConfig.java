@@ -8,10 +8,10 @@ public class MagickraftConfig extends Configuration {
 	private static final String CONFIG_FILE = "config.yaml";
 
 	// rune key format
-	private static final String RUNE_KEY_FORMAT = "runes.%s.%s";
+	private static final String RUNESETS_RUNES_KEY_FORMAT = "runesets.%s.runes.%s.%s";
 
 	// keys global to all runes
-	public static final String RUNE_ENABLED_KEY = "enabled";
+	public static final String RUNESETS_RUNES_ENABLED_KEY = "enabled";
 
 	public MagickraftConfig(Magickraft plugin) {
 		super(new File(plugin.getDataFolder(), CONFIG_FILE));
@@ -23,8 +23,8 @@ public class MagickraftConfig extends Configuration {
 		load();
 	}
 
-	public boolean getRuneBoolean(String rune, String key) {
-		String prop = getRuneKeyString(rune, key);
+	public boolean getRuneSetsRunesBoolean(String runeset, String rune, String key) {
+		String prop = String.format(RUNESETS_RUNES_KEY_FORMAT, runeset, rune, key);
 		if(getProperty(prop) == null) {
 			// property not found, set default and save
 			setProperty(prop, true);
@@ -32,9 +32,5 @@ public class MagickraftConfig extends Configuration {
 		}
 
 		return getBoolean(prop, true);
-	}
-
-	private String getRuneKeyString(String rune, String key) {
-		return String.format(RUNE_KEY_FORMAT, rune, key);
 	}
 }
