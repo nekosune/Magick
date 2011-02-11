@@ -250,9 +250,6 @@ public class AerogaRune extends Rune {
 
             // if raise is > 0, then we raise!
             if(raise >= AEROGA_MIN_RAISE) {
-            	// we are definitely raising now, so consume the rune
-            	tryRune(block);
-
             	// time to make some raise maps, these store the stop locations for a given X and Z value when raising
             	Map<Block, Integer> raise_stop_map = new HashMap<Block, Integer>();
 
@@ -309,6 +306,9 @@ public class AerogaRune extends Rune {
                 		entity.teleportTo(entityLoc);
                 	}
             	}
+
+            	// we are definitely risen now, so consume the rune
+            	tryRune(block.getFace(BlockFace.UP, raise));
 
             	// alert the player of their awesomeness
             	event.getPlayer().sendMessage("Aeroga has raised the land into the sky!");
