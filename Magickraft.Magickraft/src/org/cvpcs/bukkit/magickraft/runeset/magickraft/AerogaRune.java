@@ -279,7 +279,9 @@ public class AerogaRune extends Rune {
             			Block ob = world.getBlockAt(b.getX(), cury, b.getZ());
 
             			// since we're moving from top to bottom, we can ignore if the original block is air
-            			if(ob.getType() != Material.AIR){
+            			// we also ignore bedrock so as to not remove the bedrock layer
+            			if(ob.getType() != Material.AIR &&
+            					ob.getType() != Material.BEDROCK){
             				int newy = cury + raise;
 
 	            			Block nb = world.getBlockAt(b.getX(), newy, b.getZ());
