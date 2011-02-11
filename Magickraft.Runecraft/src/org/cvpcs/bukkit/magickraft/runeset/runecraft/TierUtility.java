@@ -32,13 +32,16 @@ public class TierUtility {
         TIERS.put(Material.FURNACE.getId(), 2);
         TIERS.put(Material.GLASS.getId(), 2);
         TIERS.put(Material.LAVA.getId(), 2);
+        TIERS.put(Material.STATIONARY_LAVA.getId(), 2);
         TIERS.put(Material.LEAVES.getId(), 2);
         TIERS.put(Material.RED_MUSHROOM.getId(), 2);
         TIERS.put(Material.BROWN_MUSHROOM.getId(), 2);
         TIERS.put(Material.STEP.getId(), 2);
+        TIERS.put(Material.DOUBLE_STEP.getId(), 2);
         TIERS.put(Material.COBBLESTONE_STAIRS.getId(), 2);
         TIERS.put(Material.WOOD_STAIRS.getId(), 2);
         TIERS.put(Material.WATER.getId(), 2);
+        TIERS.put(Material.STATIONARY_WATER.getId(), 2);
         TIERS.put(Material.WORKBENCH.getId(), 2);
         TIERS.put(Material.GLOWSTONE.getId(), 2);
         TIERS.put(Material.NOTE_BLOCK.getId(), 2);

@@ -38,13 +38,13 @@ public class DoorRune extends Rune {
 		        		{
 		        			{
 		            			RNComplexAnd.getInstance(
-		            					RNTier.getInstance(1),
+		            					RNTier.getInstance(0),
 		            					RNMaterialGroup.getInstance(0)),
 
 		            			RNMaterial.getInstance(Material.IRON_ORE),
 
 		            			RNComplexAnd.getInstance(
-		            					RNTier.getInstance(1),
+		            					RNTier.getInstance(0),
 		            					RNMaterialGroup.getInstance(0)),
 		        			},
 		        		},
@@ -60,15 +60,15 @@ public class DoorRune extends Rune {
 		        		{
 		        			{
 		            			RNComplexAnd.getInstance(
-		            					RNTier.getInstance(1),
+		            					RNTier.getInstance(0),
 		            					RNMaterialGroup.getInstance(0)),
 
 		            			RNComplexAnd.getInstance(
-		            					RNTier.getInstance(1),
+		            					RNTier.getInstance(0),
 		            					RNMaterialGroup.getInstance(0)),
 
 		            			RNComplexAnd.getInstance(
-		            					RNTier.getInstance(1),
+		            					RNTier.getInstance(0),
 		            					RNMaterialGroup.getInstance(0)),
 		        			},
 		        		}
