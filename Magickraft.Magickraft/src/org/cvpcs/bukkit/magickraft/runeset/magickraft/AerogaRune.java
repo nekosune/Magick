@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -249,14 +250,14 @@ public class AerogaRune extends Rune {
 
             // if raise is > 0, then we raise!
             if(raise >= AEROGA_MIN_RAISE) {
+            	// we are definitely raising now, so consume the rune
+            	tryRune(block);
 
-            	// time to make some raise maps, these store the start/stop locations for a given X and Z value when raising
-            	Map<Block, Integer> raise_start_map = new HashMap<Block, Integer>();
+            	// time to make some raise maps, these store the stop locations for a given X and Z value when raising
             	Map<Block, Integer> raise_stop_map = new HashMap<Block, Integer>();
 
             	// fill the start map and stop maps
             	for(Block b : circle) {
-            		raise_start_map.put(b, world.getHighestBlockYAt(b.getX(), b.getZ()));
             		raise_stop_map.put(b, b.getY());
             	}
 
@@ -271,32 +272,43 @@ public class AerogaRune extends Rune {
             		}
             	}
 
-            	// we are definitely raising now, so consume the rune
-            	tryRune(block);
-
             	// now we perform the raising!
             	for(Block b : circle) {
-            		int starty = raise_start_map.get(b);
             		int stopy = raise_stop_map.get(b);
 
-            		int cury = starty;
+            		int cury = AEROGA_MAX_HEIGHT;
 
             		do {
-            			int newy = cury + raise;
-
             			Block ob = world.getBlockAt(b.getX(), cury, b.getZ());
-            			Block nb = world.getBlockAt(b.getX(), newy, b.getZ());
 
-            			nb.setData(ob.getData());
-            			nb.setType(ob.getType());
-            			ob.setType(Material.AIR);
+            			// since we're moving from top to bottom, we can ignore if the original block is air
+            			if(ob.getType() != Material.AIR){
+            				int newy = cury + raise;
+
+	            			Block nb = world.getBlockAt(b.getX(), newy, b.getZ());
+
+	            			nb.setData(ob.getData());
+	            			nb.setType(ob.getType());
+	            			ob.setType(Material.AIR);
+            			}
             		} while(cury-- >= stopy);
             	}
 
-            	// zomg we are raised! time to raise the player as well
-            	Location playerLoc = event.getPlayer().getLocation();
-            	playerLoc.setY(playerLoc.getY() + (double)raise);
-            	event.getPlayer().teleportTo(playerLoc);
+            	// raise entities if we need to
+            	for(Entity entity : world.getEntities()) {
+                	Location entityLoc = entity.getLocation();
+                	Location centerLoc = center.getLocation();
+
+                	double dist = Math.sqrt(
+                			Math.pow(centerLoc.getX() - entityLoc.getX(), 2) +
+                			Math.pow(centerLoc.getY() - entityLoc.getY(), 2) +
+                			Math.pow(centerLoc.getZ() - entityLoc.getZ(), 2));
+
+                	if(dist <= radius) {
+                		entityLoc.setY(entityLoc.getY() + (double)raise);
+                		entity.teleportTo(entityLoc);
+                	}
+            	}
 
             	// alert the player of their awesomeness
             	event.getPlayer().sendMessage("Aeroga has raised the land into the sky!");
