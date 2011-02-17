@@ -9,9 +9,7 @@ import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
-import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
-import org.cvpcs.bukkit.magickraft.runestruct.RNMaterialGroup;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 public class MineshaftRune extends Rune {
@@ -56,7 +54,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
-        						RNTier.getInstance(1),
+        						RNTier.getInstance(),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.REDSTONE_WIRE),
@@ -112,9 +110,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
@@ -122,15 +118,9 @@ public class MineshaftRune extends Rune {
         					{//4
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         					},
@@ -138,9 +128,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
@@ -178,9 +166,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
@@ -189,39 +175,25 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         					},
         					{//4
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         					},
         					{//5
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
@@ -230,9 +202,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
@@ -279,9 +249,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
@@ -346,9 +314,7 @@ public class MineshaftRune extends Rune {
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
-        						RNComplexAnd.getInstance(
-        								RNMaterialGroup.getInstance(0),
-        								RNTier.getInstance(1)),
+        						RNMaterial.getInstance(Material.COBBLESTONE),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),
         						RNMaterial.getInstance(Material.AIR),

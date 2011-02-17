@@ -23,33 +23,33 @@ public class CompassRune extends Rune {
         		.setRuneMap(new IRuneNode[][]{
 		        		{
 		        			RNComplexAnd.getInstance(
-		        					RNTier.getInstance(1),
+		        					RNTier.getInstance(),
 		        					RNMaterialGroup.getInstance(0)),
 
 		        			RNMaterial.getInstance(Material.AIR),
 
 		        			RNComplexAnd.getInstance(
-		        					RNTier.getInstance(1),
+		        					RNTier.getInstance(),
 		        					RNMaterialGroup.getInstance(0)),
 		        		},
 		        		{
 		    				RNMaterial.getInstance(Material.AIR),
 
 		        			RNComplexAnd.getInstance(
-		        					RNTier.getInstance(1),
+		        					RNTier.getInstance(),
 		        					RNMaterialGroup.getInstance(0)),
 
 		    				RNMaterial.getInstance(Material.AIR)
 		        		},
 		        		{
 		        			RNComplexAnd.getInstance(
-		        					RNTier.getInstance(1),
+		        					RNTier.getInstance(),
 		        					RNMaterialGroup.getInstance(0)),
 
 		        			RNMaterial.getInstance(Material.AIR),
 
 		        			RNComplexAnd.getInstance(
-		        					RNTier.getInstance(1),
+		        					RNTier.getInstance(),
 		        					RNMaterialGroup.getInstance(0)),
 		        		},
         			}));

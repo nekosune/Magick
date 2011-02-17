@@ -22,11 +22,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
 
-public class MagickBeaconRune extends Rune {
+public class MagicBeaconRune extends Rune {
 
-	public static final String NAME = "magickbeacon";
+	public static final String NAME = "magicbeacon";
 
-    public MagickBeaconRune(Magickraft plugin, RuneSet set) {
+    public MagicBeaconRune(Magickraft plugin, RuneSet set) {
         super(plugin, set, new RuneStructure(3, 3)
         		.setRuneMap(new IRuneNode[][]{
 			        	{
@@ -59,14 +59,14 @@ public class MagickBeaconRune extends Rune {
         Block block = event.getBlock();
 
         // look for a beacon
-    	MagickBeacon beacon = getMagickBeacon(block.getLocation());
+    	MagicBeacon beacon = getMagicBeacon(block.getLocation());
 
     	// wewt, we only care if there isn't a beacon
     	if(beacon == null) {
     		// no beacon, is the rune valid?
             if (tryRune(block)) {
         		// time to create a beacon!
-        		beacon = new MagickBeacon();
+        		beacon = new MagicBeacon();
         		beacon.w = block.getWorld().getId();
         		beacon.x = block.getLocation().getBlockX();
         		beacon.z = block.getLocation().getBlockZ();
@@ -90,7 +90,7 @@ public class MagickBeaconRune extends Rune {
         		}
 
 
-        		event.getPlayer().sendMessage("Magick beacon created");
+        		event.getPlayer().sendMessage("Magic beacon created");
 
                 return true;
             }
@@ -103,11 +103,11 @@ public class MagickBeaconRune extends Rune {
     public boolean onRuneDamage(BlockDamageEvent event) {
     	if(event.getDamageLevel() == BlockDamageLevel.BROKEN) {
     		Block block = event.getBlock();
-    		MagickBeacon beacon = getMagickBeacon(block.getLocation());
+    		MagicBeacon beacon = getMagicBeacon(block.getLocation());
 
     		if(beacon != null) {
     			deleteMagickBeacon(beacon);
-    			event.getPlayer().sendMessage("Magick beacon destroyed");
+    			event.getPlayer().sendMessage("Magic beacon destroyed");
 
     			// players don't get minerals back for this
     			event.setCancelled(true);
@@ -135,15 +135,15 @@ public class MagickBeaconRune extends Rune {
     	return false;
     }
 
-    private class MagickBeacon {
+    private class MagicBeacon {
     	public long w;
     	public int x;
     	public int z;
     }
 
-    private MagickBeacon getMagickBeacon(Location loc) {
+    private MagicBeacon getMagicBeacon(Location loc) {
     	Connection sqlConn = null;
-    	MagickBeacon b = null;
+    	MagicBeacon b = null;
         File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
         try {
         	sqlConn = DriverManager.getConnection("jdbc:sqlite:" + dbfile.getAbsolutePath());
@@ -157,7 +157,7 @@ public class MagickBeaconRune extends Rune {
         	ResultSet rs = stmt.executeQuery();
 
         	if(rs.next()) {
-        		b = new MagickBeacon();
+        		b = new MagicBeacon();
         		b.w = loc.getWorld().getId();
         		b.x = loc.getBlockX();
         		b.z = loc.getBlockZ();
@@ -176,7 +176,7 @@ public class MagickBeaconRune extends Rune {
         return b;
     }
 
-    private void saveMagickBeacon(MagickBeacon b) {
+    private void saveMagickBeacon(MagicBeacon b) {
     	Connection sqlConn = null;
         File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
         try {
@@ -205,7 +205,7 @@ public class MagickBeaconRune extends Rune {
         }
     }
 
-    private void deleteMagickBeacon(MagickBeacon b) {
+    private void deleteMagickBeacon(MagicBeacon b) {
     	Connection sqlConn = null;
         File dbfile = new File(getRuneSet().getDataFolder(), NAME + ".db");
         try {

@@ -20,7 +20,7 @@ public class RunecraftRuneSet extends RuneSet {
 		mRunes.add(new CompassRune(plugin, this)); // done
 		mRunes.add(new DoorRune(plugin, this));
 		mRunes.add(new FreezerRune(plugin, this)); // done
-		mRunes.add(new MagickBeaconRune(plugin, this));
+		mRunes.add(new MagicBeaconRune(plugin, this));
 		mRunes.add(new MineshaftRune(plugin, this)); // done
 		mRunes.add(new OracleRune(plugin, this)); // done
 	}

@@ -10,6 +10,11 @@ public class RNTier implements IRuneNode {
 
 	private static final HashMap<Integer, RNTier> INSTANCES = new HashMap<Integer, RNTier>();
 
+	// helper function that gets an instance of any tiered block being accepted (tier >= 0)
+	public static IRuneNode getInstance() {
+		return getInstance(0);
+	}
+	
 	public static IRuneNode getInstance(int t) {
 		Integer tier = Integer.valueOf(t);
 
