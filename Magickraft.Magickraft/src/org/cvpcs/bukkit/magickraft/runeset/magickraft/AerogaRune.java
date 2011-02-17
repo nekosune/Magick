@@ -52,11 +52,11 @@ public class AerogaRune extends Rune {
         				{//2
 			    			{
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
 			    			}
         				},
@@ -64,9 +64,9 @@ public class AerogaRune extends Rune {
 			    			{
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
 			    				RNMaterial.getInstance(Material.AIR),
 			    			}
@@ -87,7 +87,7 @@ public class AerogaRune extends Rune {
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.AIR),
@@ -98,7 +98,7 @@ public class AerogaRune extends Rune {
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
-			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance(1)),
+			    				RNComplexAnd.getInstance(RNMaterialGroup.getInstance(0), RNTier.getInstance()),
 			    				RNMaterial.getInstance(Material.IRON_BLOCK),
 			    				RNMaterial.getInstance(Material.AIR),
 			    				RNMaterial.getInstance(Material.AIR),
