@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 public class TierUtility {
     private static final HashMap<Integer, Integer> TIERS = new HashMap<Integer, Integer>();
     static {
-    	// tier 0
+        // tier 0
         TIERS.put(Material.AIR.getId(), 0);
         TIERS.put(Material.DIRT.getId(), 0);
         TIERS.put(Material.GRASS.getId(), 0);
@@ -92,22 +92,22 @@ public class TierUtility {
     }
 
     public static int getMaxTier() {
-    	int tier = -1;
-    	for(Integer i : TIERS.values()) {
-    		if(tier < i) {
-    			tier = i;
-    		}
-    	}
+        int tier = -1;
+        for(Integer i : TIERS.values()) {
+            if(tier < i) {
+                tier = i;
+            }
+        }
 
-    	return tier;
+        return tier;
     }
 
-	public static int getTier(Block b) {
-		int bTier = -1;
-		if(TIERS.containsKey(b.getTypeId())) {
-			bTier = TIERS.get(b.getTypeId());
-		}
+    public static int getTier(Block b) {
+        int bTier = -1;
+        if(TIERS.containsKey(b.getTypeId())) {
+            bTier = TIERS.get(b.getTypeId());
+        }
 
-		return bTier;
-	}
+        return bTier;
+    }
 }

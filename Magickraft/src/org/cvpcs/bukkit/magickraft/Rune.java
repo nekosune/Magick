@@ -11,7 +11,7 @@ import java.lang.Comparable;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 public abstract class Rune
-		implements Comparable<Rune>
+        implements Comparable<Rune>
 {
     private Magickraft mPlugin;
     private RuneSet mRuneSet;
@@ -35,7 +35,7 @@ public abstract class Rune
     }
 
     public boolean onRuneRedstone(BlockRedstoneEvent event) {
-    	return false;
+        return false;
     }
 
     public boolean onRuneUseRightClick(BlockRightClickEvent event) {
@@ -54,7 +54,7 @@ public abstract class Rune
     public void setEnabled(boolean enabled) { this.mEnabled = enabled; }
 
     public int getSize() {
-    	return mStructure.getSize();
+        return mStructure.getSize();
     }
 
     protected Magickraft getPlugin() { return mPlugin; }
@@ -69,7 +69,7 @@ public abstract class Rune
      * @return true if the rune was ran, false otherwise
      */
     protected boolean tryRune(Block b) {
-    	return mStructure.tryRune(b, true);
+        return mStructure.tryRune(b, true);
     }
 
     /**
@@ -81,7 +81,7 @@ public abstract class Rune
      * @return true if the rune was ran, false otherwise
      */
     protected boolean tryRuneWithoutConsumption(Block b) {
-    	return mStructure.tryRune(b, false);
+        return mStructure.tryRune(b, false);
     }
 
     /**
@@ -91,13 +91,13 @@ public abstract class Rune
      * @return The world if found, null if not found.
      */
     protected World findWorld(String name) {
-    	for(World world : mPlugin.getServer().getWorlds()) {
-    		if(world.getName().equals(name)) {
-    			return world;
-    		}
-    	}
+        for(World world : mPlugin.getServer().getWorlds()) {
+            if(world.getName().equals(name)) {
+                return world;
+            }
+        }
 
-    	return null;
+        return null;
     }
 
     /**
@@ -107,18 +107,18 @@ public abstract class Rune
      * @return The world if found, null if not found.
      */
     protected World findWorld(long seed) {
-    	for(World world : mPlugin.getServer().getWorlds()) {
-    		if(world.getId() == seed) {
-    			return world;
-    		}
-    	}
+        for(World world : mPlugin.getServer().getWorlds()) {
+            if(world.getId() == seed) {
+                return world;
+            }
+        }
 
-    	return null;
+        return null;
     }
 
     // comparable interface
     public int compareTo(Rune rune) {
-    	// we want sorting to be largest to smallest, so reverse this
-    	return rune.getSize() - this.getSize();
+        // we want sorting to be largest to smallest, so reverse this
+        return rune.getSize() - this.getSize();
     }
 }

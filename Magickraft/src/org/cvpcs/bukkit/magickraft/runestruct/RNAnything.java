@@ -4,22 +4,22 @@ import org.bukkit.block.Block;
 
 public class RNAnything implements IRuneNode {
 
-	private static final RNAnything INSTANCE = new RNAnything();
+    private static final RNAnything INSTANCE = new RNAnything();
 
-	public static IRuneNode getInstance() {
-		return INSTANCE;
-	}
+    public static IRuneNode getInstance() {
+        return INSTANCE;
+    }
 
-	private RNAnything() {}
+    private RNAnything() {}
 
-	@Override
-	public boolean isValid(Block b) {
-		return true;
-	}
+    @Override
+    public boolean isValid(Block b) {
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "RNAnything";
-	}
+    @Override
+    public String toString() {
+        return "RNAnything";
+    }
 
 }

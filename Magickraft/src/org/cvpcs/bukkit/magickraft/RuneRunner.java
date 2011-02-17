@@ -13,33 +13,33 @@ import java.util.List;
 
 public class RuneRunner extends BlockListener {
 
-	private List<Rune> mRunes;
+    private List<Rune> mRunes;
 
-	public RuneRunner() {
-		unloadRunes();
-	}
+    public RuneRunner() {
+        unloadRunes();
+    }
 
-	public RuneRunner(Collection<Rune> runes) {
-		loadRunes(runes);
-	}
+    public RuneRunner(Collection<Rune> runes) {
+        loadRunes(runes);
+    }
 
-	public void loadRunes(Collection<Rune> runes) {
-		mRunes = new ArrayList<Rune>(runes);
-		Collections.sort(mRunes);
-	}
+    public void loadRunes(Collection<Rune> runes) {
+        mRunes = new ArrayList<Rune>(runes);
+        Collections.sort(mRunes);
+    }
 
-	public void unloadRunes() {
-		mRunes = new ArrayList<Rune>();
-	}
+    public void unloadRunes() {
+        mRunes = new ArrayList<Rune>();
+    }
 
     @Override
     public void onBlockRightClick(BlockRightClickEvent event)
     {
-    	// we don't run runes if they're holding a block besides air (we're just like that)
-    	if(event.getPlayer().getItemInHand().getType().isBlock() &&
-    			event.getPlayer().getItemInHand().getType() != Material.AIR) {
-    		return;
-    	}
+        // we don't run runes if they're holding a block besides air (we're just like that)
+        if(event.getPlayer().getItemInHand().getType().isBlock() &&
+                event.getPlayer().getItemInHand().getType() != Material.AIR) {
+            return;
+        }
 
         for(Rune rune : mRunes) {
             if (rune.getEnabled()) {

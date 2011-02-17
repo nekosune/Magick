@@ -5,32 +5,32 @@ import org.bukkit.util.config.Configuration;
 
 public class MagickraftConfig extends Configuration {
 
-	private static final String CONFIG_FILE = "config.yaml";
+    private static final String CONFIG_FILE = "config.yaml";
 
-	// rune key format
-	private static final String RUNESETS_RUNES_KEY_FORMAT = "runesets.%s.runes.%s.%s";
+    // rune key format
+    private static final String RUNESETS_RUNES_KEY_FORMAT = "runesets.%s.runes.%s.%s";
 
-	// keys global to all runes
-	public static final String RUNESETS_RUNES_ENABLED_KEY = "enabled";
+    // keys global to all runes
+    public static final String RUNESETS_RUNES_ENABLED_KEY = "enabled";
 
-	public MagickraftConfig(Magickraft plugin) {
-		super(new File(plugin.getDataFolder(), CONFIG_FILE));
+    public MagickraftConfig(Magickraft plugin) {
+        super(new File(plugin.getDataFolder(), CONFIG_FILE));
 
-		// make sure we have a configuration directory
-		plugin.getDataFolder().mkdirs();
+        // make sure we have a configuration directory
+        plugin.getDataFolder().mkdirs();
 
-		// construct our configuration object
-		load();
-	}
+        // construct our configuration object
+        load();
+    }
 
-	public boolean getRuneSetsRunesBoolean(String runeset, String rune, String key) {
-		String prop = String.format(RUNESETS_RUNES_KEY_FORMAT, runeset, rune, key);
-		if(getProperty(prop) == null) {
-			// property not found, set default and save
-			setProperty(prop, true);
-			save();
-		}
+    public boolean getRuneSetsRunesBoolean(String runeset, String rune, String key) {
+        String prop = String.format(RUNESETS_RUNES_KEY_FORMAT, runeset, rune, key);
+        if(getProperty(prop) == null) {
+            // property not found, set default and save
+            setProperty(prop, true);
+            save();
+        }
 
-		return getBoolean(prop, true);
-	}
+        return getBoolean(prop, true);
+    }
 }

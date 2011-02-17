@@ -6,33 +6,33 @@ import java.util.HashMap;
 
 public class RNComplexNot implements IRuneNode {
 
-	private static final HashMap<String, RNComplexNot> INSTANCES = new HashMap<String, RNComplexNot>();
+    private static final HashMap<String, RNComplexNot> INSTANCES = new HashMap<String, RNComplexNot>();
 
-	public static IRuneNode getInstance(IRuneNode node) {
-		RNComplexNot rnc = new RNComplexNot(node);
+    public static IRuneNode getInstance(IRuneNode node) {
+        RNComplexNot rnc = new RNComplexNot(node);
 
-		if(INSTANCES.containsKey(rnc.toString())) {
-			return INSTANCES.get(rnc.toString());
-		} else {
-			INSTANCES.put(rnc.toString(), rnc);
-			return rnc;
-		}
-	}
+        if(INSTANCES.containsKey(rnc.toString())) {
+            return INSTANCES.get(rnc.toString());
+        } else {
+            INSTANCES.put(rnc.toString(), rnc);
+            return rnc;
+        }
+    }
 
-	private IRuneNode mNodeType;
+    private IRuneNode mNodeType;
 
-	private RNComplexNot(IRuneNode node) {
-		mNodeType = node;
-	}
+    private RNComplexNot(IRuneNode node) {
+        mNodeType = node;
+    }
 
-	@Override
-	public boolean isValid(Block b) {
-		return (!mNodeType.isValid(b));
-	}
+    @Override
+    public boolean isValid(Block b) {
+        return (!mNodeType.isValid(b));
+    }
 
-	@Override
-	public String toString() {
-		return "RNComplexNot[" + mNodeType.toString() + "]";
-	}
+    @Override
+    public String toString() {
+        return "RNComplexNot[" + mNodeType.toString() + "]";
+    }
 
 }

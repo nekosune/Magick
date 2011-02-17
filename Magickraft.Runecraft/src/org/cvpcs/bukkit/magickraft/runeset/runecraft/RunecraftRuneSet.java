@@ -9,30 +9,30 @@ import org.cvpcs.bukkit.magickraft.RuneSet;
 
 public class RunecraftRuneSet extends RuneSet {
 
-	private static final String NAME = "Runecraft";
+    private static final String NAME = "Runecraft";
 
-	private final List<Rune> mRunes = new ArrayList<Rune>();
+    private final List<Rune> mRunes = new ArrayList<Rune>();
 
-	public RunecraftRuneSet(Magickraft plugin) {
-		super(plugin);
+    public RunecraftRuneSet(Magickraft plugin) {
+        super(plugin);
 
-		mRunes.add(new ChronoTriggerRune(plugin, this)); // done
-		mRunes.add(new CompassRune(plugin, this)); // done
-		mRunes.add(new DoorRune(plugin, this));
-		mRunes.add(new FreezerRune(plugin, this)); // done
-		mRunes.add(new MagicBeaconRune(plugin, this));
-		mRunes.add(new MineshaftRune(plugin, this)); // done
-		mRunes.add(new OracleRune(plugin, this)); // done
-	}
+        mRunes.add(new ChronoTriggerRune(plugin, this)); // done
+        mRunes.add(new CompassRune(plugin, this)); // done
+        mRunes.add(new DoorRune(plugin, this));
+        mRunes.add(new FreezerRune(plugin, this)); // done
+        mRunes.add(new MagicBeaconRune(plugin, this));
+        mRunes.add(new MineshaftRune(plugin, this)); // done
+        mRunes.add(new OracleRune(plugin, this)); // done
+    }
 
-	@Override
-	public String getName() {
-		return NAME;
-	}
+    @Override
+    public String getName() {
+        return NAME;
+    }
 
-	@Override
-	public List<Rune> getRunes() {
-		return mRunes;
-	}
+    @Override
+    public List<Rune> getRunes() {
+        return mRunes;
+    }
 
 }

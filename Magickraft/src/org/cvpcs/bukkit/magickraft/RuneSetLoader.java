@@ -17,22 +17,22 @@ import java.util.regex.Pattern;
 
 public class RuneSetLoader {
 
-	private static final Pattern[] FILE_FILTERS = new Pattern[] {
-		Pattern.compile("\\.jar$"),
-	};
+    private static final Pattern[] FILE_FILTERS = new Pattern[] {
+        Pattern.compile("\\.jar$"),
+    };
 
-	private static final Pattern INFO_PATTERN = Pattern.compile("^[ \\t]*([^ \\t=]+)[ \\t]*=[ \\t]*([^ \\t]+)[ \\t]*$");
-	private static final String INFO_CLASSNAME = "className";
+    private static final Pattern INFO_PATTERN = Pattern.compile("^[ \\t]*([^ \\t=]+)[ \\t]*=[ \\t]*([^ \\t]+)[ \\t]*$");
+    private static final String INFO_CLASSNAME = "className";
 
-	private final Map<String, Class<?>> mClasses = new HashMap<String, Class<?>>();
+    private final Map<String, Class<?>> mClasses = new HashMap<String, Class<?>>();
 
-	public RuneSet loadRuneSet(Magickraft plugin, File file)
-			throws InvalidRuneSetException {
-		RuneSet result = null;
-		String runeSetClassName = null;
+    public RuneSet loadRuneSet(Magickraft plugin, File file)
+            throws InvalidRuneSetException {
+        RuneSet result = null;
+        String runeSetClassName = null;
 
-		if(!file.exists()) {
-			throw new InvalidRuneSetException(new FileNotFoundException(String.format("%s does not exist", file.getPath())));
+        if(!file.exists()) {
+            throw new InvalidRuneSetException(new FileNotFoundException(String.format("%s does not exist", file.getPath())));
         }
         try {
             JarFile jar = new JarFile(file);
@@ -46,13 +46,13 @@ public class RuneSetLoader {
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
             String line = null;
             while((line = br.readLine()) != null) {
-            	// find our class name
-            	Matcher matcher = INFO_PATTERN.matcher(line);
-            	if(matcher.matches()) {
-            		if(INFO_CLASSNAME.equals(matcher.group(1))) {
-            			runeSetClassName = matcher.group(2);
-            		}
-            	}
+                // find our class name
+                Matcher matcher = INFO_PATTERN.matcher(line);
+                if(matcher.matches()) {
+                    if(INFO_CLASSNAME.equals(matcher.group(1))) {
+                        runeSetClassName = matcher.group(2);
+                    }
+                }
             }
 
             br.close();

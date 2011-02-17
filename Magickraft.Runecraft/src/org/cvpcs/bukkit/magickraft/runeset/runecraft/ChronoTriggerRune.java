@@ -17,30 +17,30 @@ import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
  */
 public class ChronoTriggerRune extends Rune
 {
-	public static final String NAME = "chronotrigger";
+    public static final String NAME = "chronotrigger";
 
     public ChronoTriggerRune(Magickraft plugin, RuneSet set)
     {
         super(plugin, set, new RuneStructure(3, 3, 3)
-        		.setClickHeight(2)
-        		.setRuneMap(new IRuneNode[][][]{
-		        		{
-		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-		        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
-		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-		        		},
-		        		{
-		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-		        			{RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
-		        			{RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
-		        		},
-		        		{
-		        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.GOLD_BLOCK)   , RNMaterial.getInstance(Material.GOLD_BLOCK)},
-		        			{RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.DIAMOND_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)},
-		        			{RNMaterial.getInstance(Material.OBSIDIAN), RNMaterial.getInstance(Material.OBSIDIAN)     , RNMaterial.getInstance(Material.OBSIDIAN)},
-		        		},
-        			})
-        		.setAllowedRotation(RuneStructure.Rotation.NORTH));
+                .setClickHeight(2)
+                .setRuneMap(new IRuneNode[][][]{
+                        {
+                            {RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+                            {RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
+                            {RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+                        },
+                        {
+                            {RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+                            {RNAnything.getInstance(), RNMaterial.getInstance(Material.IRON_BLOCK), RNAnything.getInstance()},
+                            {RNAnything.getInstance(), RNAnything.getInstance()                   , RNAnything.getInstance()},
+                        },
+                        {
+                            {RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.GOLD_BLOCK)   , RNMaterial.getInstance(Material.GOLD_BLOCK)},
+                            {RNMaterial.getInstance(Material.GOLD_BLOCK), RNMaterial.getInstance(Material.DIAMOND_BLOCK), RNMaterial.getInstance(Material.OBSIDIAN)},
+                            {RNMaterial.getInstance(Material.OBSIDIAN), RNMaterial.getInstance(Material.OBSIDIAN)     , RNMaterial.getInstance(Material.OBSIDIAN)},
+                        },
+                    })
+                .setAllowedRotation(RuneStructure.Rotation.NORTH));
     }
 
     public String getName() { return NAME; }

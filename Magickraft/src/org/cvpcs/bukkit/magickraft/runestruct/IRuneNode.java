@@ -4,6 +4,6 @@ import org.bukkit.block.Block;
 
 public interface IRuneNode {
 
-	boolean isValid(Block b);
+    boolean isValid(Block b);
 
 }
