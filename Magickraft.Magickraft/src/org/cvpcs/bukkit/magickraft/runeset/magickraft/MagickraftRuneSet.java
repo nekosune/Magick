@@ -17,6 +17,8 @@ public class MagickraftRuneSet extends RuneSet {
 		super(plugin);
 
 		mRunes.add(new AerogaRune(plugin, this));
+		mRunes.add(new FiregaRune(plugin, this));
+		//mRunes.add(new NetherChestRune(plugin, this)); incomplete, requires bukkit features to be implemented
 		mRunes.add(new WaypointRune(plugin, this));
 	}
 
