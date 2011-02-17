@@ -229,6 +229,12 @@ public class WaypointRune extends Rune {
         				+ block.getFace(BlockFace.SOUTH, 1).getType().toString() + "."
         				+ block.getFace(BlockFace.WEST, 1).getType().toString();
 
+        		if(wp.mSignature.contains(TELEPORT_MATERIAL.toString()) ||
+        				wp.mSignature.contains(WAYPOINT_MATERIAL.toString())) {
+        			// just kidding, our waypoints can't use obsidian or gold for their identifiers
+        			return false;
+        		}
+
         		// search to make sure another waypoint with this signature doesn't exist
         		Waypoint sigCheck = new Waypoint();
         		if(sigCheck.load(wp.mSignature)) {
