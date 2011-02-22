@@ -10,7 +10,9 @@ import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.RuneSet;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
+import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
+import org.cvpcs.bukkit.magickraft.runestruct.TierUtility;
 
 public class MineshaftRune extends Rune {
 

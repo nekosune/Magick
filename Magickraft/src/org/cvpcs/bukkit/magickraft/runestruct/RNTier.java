@@ -1,10 +1,8 @@
-package org.cvpcs.bukkit.magickraft.runeset.runecraft;
+package org.cvpcs.bukkit.magickraft.runestruct;
 
 import java.util.HashMap;
 
 import org.bukkit.block.Block;
-
-import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 
 public class RNTier implements IRuneNode {
 
@@ -14,7 +12,7 @@ public class RNTier implements IRuneNode {
     public static IRuneNode getInstance() {
         return getInstance(0);
     }
-    
+
     public static IRuneNode getInstance(int t) {
         Integer tier = Integer.valueOf(t);
 
@@ -40,9 +38,31 @@ public class RNTier implements IRuneNode {
         }
     }
 
-    @Override
     public boolean isValid(Block b) {
         return (TierUtility.getTier(b) >= mTier);
+    }
+
+    public static IRuneNodeDataParser getDataParser() {
+    	return new RNTierDataParser();
+    }
+
+    private static class RNTierDataParser implements IRuneNodeDataParser {
+    	private static final String ID = "T";
+
+	    public String getNodeTypeId() { return ID; }
+
+	    public IRuneNode parseNodeData(RuneNodeParser parser, String txt) {
+	    	Integer tier = 0;
+
+	    	try {
+	    		int t = Integer.parseInt(txt);
+	    		tier = Integer.valueOf(t);
+	    	} catch(Exception e) {
+	    		tier = 0;
+	    	}
+
+    		return getInstance(tier.intValue());
+	    }
     }
 
     @Override

@@ -1,0 +1,20 @@
+Rune Structure Definition Grammar
+
+This is the definition document for the grammar used to define rune structures through use
+of the parsing mechanism.
+
+RUNE_STRUCTURE := RUNE_SLICE ( NEWLINE RUNE_SLICE )*
+
+RUNE_SLICE := ( RUNE_ROW NEWLINE )+
+
+RUNE_ROW := RUNE_NODE ( "," RUNE_NODE )*
+
+RUNE_NODE := "(" NODE_ID ":" NODE_DATA ")"
+
+NODE_ID := ALPHANUM+
+NODE_DATA := ( ALPHANUM+ | "(" NODE_DATA ")" )
+
+ALPHANUM := ( LETTER | DIGIT )
+LETTER := [A-z]
+DIGIT := [0-9]
+NEWLINE := "\n"

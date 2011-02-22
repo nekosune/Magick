@@ -11,6 +11,7 @@ import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNAnything;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
+import org.cvpcs.bukkit.magickraft.runestruct.TierUtility;
 
 public class OracleRune extends Rune {
 

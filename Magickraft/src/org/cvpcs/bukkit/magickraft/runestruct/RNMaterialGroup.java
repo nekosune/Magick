@@ -33,7 +33,6 @@ public class RNMaterialGroup implements IRuneNode {
         mGroupId = Integer.valueOf(groupId);
     }
 
-    @Override
     public boolean isValid(Block b) {
         Integer blockTypeId = Integer.valueOf(b.getTypeId());
 
@@ -44,6 +43,34 @@ public class RNMaterialGroup implements IRuneNode {
             GROUPS.put(mGroupId, blockTypeId);
             return true;
         }
+    }
+
+    public static IRuneNodeDataParser getDataParser() {
+    	return new RNMaterialGroupDataParser();
+    }
+
+    private static class RNMaterialGroupDataParser implements IRuneNodeDataParser {
+    	private static final String ID = "MG";
+
+	    public String getNodeTypeId() { return ID; }
+
+	    public IRuneNode parseNodeData(RuneNodeParser parser, String txt) {
+	    	Integer group_id = null;
+
+	    	try {
+	    		int gid = Integer.parseInt(txt);
+	    		group_id = Integer.valueOf(gid);
+	    	} catch(Exception e) {
+	    		e.printStackTrace();
+	    		group_id = null;
+	    	}
+
+	    	if(group_id == null) {
+	    		return null;
+	    	} else {
+	    		return getInstance(group_id.intValue());
+	    	}
+	    }
     }
 
     @Override

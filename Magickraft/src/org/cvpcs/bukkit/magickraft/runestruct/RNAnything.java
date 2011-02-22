@@ -12,9 +12,23 @@ public class RNAnything implements IRuneNode {
 
     private RNAnything() {}
 
-    @Override
     public boolean isValid(Block b) {
         return true;
+    }
+
+
+    public static IRuneNodeDataParser getDataParser() {
+    	return new RNAnythingDataParser();
+    }
+
+    private static class RNAnythingDataParser implements IRuneNodeDataParser {
+    	private static final String ID = "A";
+
+	    public String getNodeTypeId() { return ID; }
+
+	    public IRuneNode parseNodeData(RuneNodeParser parser, String txt) {
+	    	return getInstance();
+	    }
     }
 
     @Override

@@ -12,13 +12,13 @@ import org.cvpcs.bukkit.magickraft.BlockUtility;
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.RuneSet;
-import org.cvpcs.bukkit.magickraft.runeset.runecraft.RNTier;
-import org.cvpcs.bukkit.magickraft.runeset.runecraft.TierUtility;
 import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
 import org.cvpcs.bukkit.magickraft.runestruct.RNComplexAnd;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
 import org.cvpcs.bukkit.magickraft.runestruct.RNMaterialGroup;
+import org.cvpcs.bukkit.magickraft.runestruct.RNTier;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
+import org.cvpcs.bukkit.magickraft.runestruct.TierUtility;
 
 public class FiregaRune extends Rune {
 

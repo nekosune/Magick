@@ -27,9 +27,37 @@ public class RNMaterial implements IRuneNode {
         mMaterialId = m.getId();
     }
 
-    @Override
     public boolean isValid(Block b) {
         return (b.getTypeId() == mMaterialId);
+    }
+
+
+    public static IRuneNodeDataParser getDataParser() {
+    	return new RNMaterialDataParser();
+    }
+
+    private static class RNMaterialDataParser implements IRuneNodeDataParser {
+    	private static final String ID = "M";
+
+	    public String getNodeTypeId() { return ID; }
+
+	    public IRuneNode parseNodeData(RuneNodeParser parser, String txt) {
+	    	Material mat = null;
+
+	    	try {
+	    		int mat_id = Integer.parseInt(txt);
+	    		mat = Material.getMaterial(mat_id);
+	    	} catch(Exception e) {
+	    		e.printStackTrace();
+	    		mat = null;
+	    	}
+
+	    	if(mat == null) {
+	    		return null;
+	    	} else {
+	    		return getInstance(mat);
+	    	}
+	    }
     }
 
     @Override
