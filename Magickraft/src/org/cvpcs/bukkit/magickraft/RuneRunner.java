@@ -1,6 +1,7 @@
 package org.cvpcs.bukkit.magickraft;
 
 import org.bukkit.Material;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.event.block.BlockDamageEvent;
@@ -71,6 +72,25 @@ public class RuneRunner extends BlockListener {
         for(Rune rune : mRunes) {
             if (rune.getEnabled()) {
                 if (rune.onRuneDamage(event)) {
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onBlockBreak(BlockBreakEvent event) {
+        for(Rune rune : mRunes) {
+            if (rune.getEnabled()) {
+                if (rune.onRuneUseBreak(event)) {
+                    return;
+                }
+            }
+        }
+
+        for(Rune rune : mRunes) {
+            if (rune.getEnabled()) {
+                if (rune.onRuneBreak(event)) {
                     return;
                 }
             }

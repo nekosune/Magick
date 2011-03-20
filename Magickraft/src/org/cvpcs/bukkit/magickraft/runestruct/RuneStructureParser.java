@@ -26,7 +26,7 @@ public class RuneStructureParser {
 
 		try {
 			while((line = in.readLine()) != null) {
-				txt += "\n" + line;
+				txt += line.replaceAll("\\s", "") + "\n";
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class RuneStructureParser {
 		return parseStructure(txt);
 	}
 
-	public IRuneNode[][][] parseStructure(String txt) {
+	private IRuneNode[][][] parseStructure(String txt) {
 		ArrayList<IRuneNode[][]> slices = new ArrayList<IRuneNode[][]>();
 
 		String slices_txt[] = txt.split("\n\n");
@@ -46,10 +46,7 @@ public class RuneStructureParser {
 			}
 		}
 
-		IRuneNode[][][] result = slices.toArray(new IRuneNode[][][]{ });
-		
-		System.out.println(result.toString());
-		return result;
+		return slices.toArray(new IRuneNode[][][]{ });
 	}
 
 	private IRuneNode[][] parseSlice(String txt) {
@@ -67,8 +64,6 @@ public class RuneStructureParser {
 	}
 
 	private IRuneNode[] parseRow(String txt) {
-		txt = txt.replaceAll("[ \t\r\n]", "");
-
 		ArrayList<IRuneNode> nodes = new ArrayList<IRuneNode>();
 		Stack<Character> s = new Stack<Character>();
 
@@ -83,9 +78,7 @@ public class RuneStructureParser {
 			case ')':
 				s.pop();
 
-				// check if we're in a parens or not
 				if(s.size() == 0) {
-					// not in a parens, parse a rune node
 					IRuneNode node = mNodeParser.parseRuneNode(txt.substring(start, i + 1));
 
 					if(node != null) {
@@ -94,11 +87,11 @@ public class RuneStructureParser {
 
 					start = i + 1;
 				}
-
+				
 				break;
 			}
 		}
-
+		
 		return nodes.toArray(new IRuneNode[]{ });
 	}
 }

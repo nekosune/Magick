@@ -1,14 +1,18 @@
 package org.cvpcs.bukkit.magickraft;
 
 import org.bukkit.block.Block;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.World;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.lang.Comparable;
 
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
+import org.cvpcs.bukkit.magickraft.runestruct.RuneStructureParser;
 
 public abstract class Rune
         implements Comparable<Rune>
@@ -24,6 +28,14 @@ public abstract class Rune
         mStructure = struct;
     }
 
+    public Rune(Magickraft plugin, RuneSet set, RuneStructure struct, String runeStructAsset) {
+    	this(plugin, set, struct);
+
+    	mStructure.setRuneMap(new RuneStructureParser().parseStructure(
+    			new BufferedReader(new InputStreamReader(
+				this.getClass().getResourceAsStream(runeStructAsset)))));
+    }
+
     public abstract String getName();
 
     public boolean onRuneRightClick(BlockRightClickEvent event) {
@@ -31,6 +43,10 @@ public abstract class Rune
     }
 
     public boolean onRuneDamage(BlockDamageEvent event) {
+        return false;
+    }
+
+    public boolean onRuneBreak(BlockBreakEvent event) {
         return false;
     }
 
@@ -43,6 +59,10 @@ public abstract class Rune
     }
 
     public boolean onRuneUseDamage(BlockDamageEvent event) {
+        return false;
+    }
+
+    public boolean onRuneUseBreak(BlockBreakEvent event) {
         return false;
     }
 

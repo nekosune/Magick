@@ -1,9 +1,8 @@
 package org.cvpcs.bukkit.magickraft.runeset.runecraft;
 
 import org.bukkit.event.block.BlockRightClickEvent;
-import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
 import org.bukkit.Location;
@@ -11,8 +10,6 @@ import org.bukkit.Location;
 import org.cvpcs.bukkit.magickraft.Magickraft;
 import org.cvpcs.bukkit.magickraft.Rune;
 import org.cvpcs.bukkit.magickraft.RuneSet;
-import org.cvpcs.bukkit.magickraft.runestruct.IRuneNode;
-import org.cvpcs.bukkit.magickraft.runestruct.RNMaterial;
 import org.cvpcs.bukkit.magickraft.runestruct.RuneStructure;
 
 import java.io.File;
@@ -28,28 +25,11 @@ public class MagicBeaconRune extends Rune {
 
     public MagicBeaconRune(Magickraft plugin, RuneSet set) {
         super(plugin, set, new RuneStructure(3, 3)
-                .setRuneMap(new IRuneNode[][]{
-                        {
-                            RNMaterial.getInstance(Material.AIR),
-                            RNMaterial.getInstance(Material.REDSTONE_WIRE),
-                            RNMaterial.getInstance(Material.AIR),
-                        },
-                        {
-                            RNMaterial.getInstance(Material.COBBLESTONE),
-                            RNMaterial.getInstance(Material.TORCH),
-                            RNMaterial.getInstance(Material.COBBLESTONE),
-                        },
-                        {
-                            RNMaterial.getInstance(Material.AIR),
-                            RNMaterial.getInstance(Material.REDSTONE_WIRE),
-                            RNMaterial.getInstance(Material.AIR),
-                        },
-                       })
                 .setRuneConsumptionMap(new int[][] {
                         {Material.AIR.getId(), Material.AIR.getId()      , Material.AIR.getId()},
                         {Material.AIR.getId(), Material.GLOWSTONE.getId(), Material.AIR.getId()},
                         {Material.AIR.getId(), Material.AIR.getId()      , Material.AIR.getId()},
-                    }));
+                    }), "/magicbeacon.runestruct");
     }
 
     public String getName() { return NAME; }
@@ -100,36 +80,34 @@ public class MagicBeaconRune extends Rune {
     }
 
     @Override
-    public boolean onRuneDamage(BlockDamageEvent event) {
-        if(event.getDamageLevel() == BlockDamageLevel.BROKEN) {
-            Block block = event.getBlock();
-            MagicBeacon beacon = getMagicBeacon(block.getLocation());
+    public boolean onRuneBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
+        MagicBeacon beacon = getMagicBeacon(block.getLocation());
 
-            if(beacon != null) {
-                deleteMagickBeacon(beacon);
-                event.getPlayer().sendMessage("Magic beacon destroyed");
+        if(beacon != null) {
+            deleteMagickBeacon(beacon);
+            event.getPlayer().sendMessage("Magic beacon destroyed");
 
-                // players don't get minerals back for this
-                event.setCancelled(true);
+            // players don't get minerals back for this
+            event.setCancelled(true);
 
-                // now we create the beacon itself
-                while(block.getLocation().getBlockY() < 127) {
-                    if(block.getTypeId() == Material.GLOWSTONE.getId()) {
-                        block.setType(Material.AIR);
-                    }
-                    block = block.getFace(BlockFace.UP, 1);
+            // now we create the beacon itself
+            while(block.getLocation().getBlockY() < 127) {
+                if(block.getTypeId() == Material.GLOWSTONE.getId()) {
+                    block.setType(Material.AIR);
                 }
-                block = event.getBlock();
-                while(block.getLocation().getBlockY() > 0) {
-                    if(block.getTypeId() == Material.GLOWSTONE.getId()) {
-                        block.setType(Material.AIR);
-                    }
-                    block = block.getFace(BlockFace.DOWN, 1);
-                }
-
-
-                return true;
+                block = block.getFace(BlockFace.UP, 1);
             }
+            block = event.getBlock();
+            while(block.getLocation().getBlockY() > 0) {
+                if(block.getTypeId() == Material.GLOWSTONE.getId()) {
+                    block.setType(Material.AIR);
+                }
+                block = block.getFace(BlockFace.DOWN, 1);
+            }
+
+
+            return true;
         }
 
         return false;
@@ -164,6 +142,7 @@ public class MagicBeaconRune extends Rune {
             }
             rs.close();
         } catch(Exception e) {
+        	e.printStackTrace();
             b = null;
         } finally {
             if(sqlConn != null) {
@@ -196,6 +175,7 @@ public class MagicBeaconRune extends Rune {
             pstmt.setInt(3, b.z);
             pstmt.executeUpdate();
         } catch(Exception e) {
+        	e.printStackTrace();
         } finally {
             if(sqlConn != null) {
                 try {
@@ -218,6 +198,7 @@ public class MagicBeaconRune extends Rune {
             pstmt.setInt(3, b.z);
             pstmt.executeUpdate();
         } catch(Exception e) {
+        	e.printStackTrace();
         } finally {
             if(sqlConn != null) {
                 try {

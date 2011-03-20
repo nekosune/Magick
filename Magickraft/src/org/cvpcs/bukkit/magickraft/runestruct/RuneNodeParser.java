@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RuneNodeParser {
-	private static final Pattern NODE_PATTERN = Pattern.compile("^\\(([A-Za-z0-9]+)(:(.*))?\\)$");
+	private static final Pattern NODE_PATTERN = Pattern.compile("^\\((\\w+)(:.+)?\\)$");
 
 	private HashMap<String, IRuneNodeDataParser> mNodeTypes;
 
@@ -23,7 +23,14 @@ public class RuneNodeParser {
 
 		if(matcher.find()) {
 			String id = matcher.group(1);
-			String data = matcher.group(3);
+			String data = matcher.group(2);
+
+			// format the data properly
+			if(data != null && data.length() > 1) {
+				data = data.substring(1);
+			} else {
+				data = "";
+			}
 
 			if(mNodeTypes.containsKey(id)) {
 				return mNodeTypes.get(id).parseNodeData(this, data);

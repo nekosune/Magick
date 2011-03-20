@@ -38,7 +38,7 @@ public class RNComplexAnd implements IRuneNode {
     }
 
     private static class RNComplexAndDataParser implements IRuneNodeDataParser {
-    	private static final String ID = "CN";
+    	private static final String ID = "CA";
 
     	public String getNodeTypeId() { return ID; }
 

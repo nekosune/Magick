@@ -1,10 +1,7 @@
 package org.cvpcs.bukkit.magickraft;
 
-import org.bukkit.Server;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -25,15 +22,6 @@ public class Magickraft extends JavaPlugin {
 
     private RuneRunner mRuneRunner;
 
-    public Magickraft(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
-        super(pluginLoader, instance, desc, folder, plugin, cLoader);
-        CONFIG = new MagickraftConfig(this);
-
-        loadRuneSets();
-
-        mRuneRunner = new RuneRunner();
-    }
-
     public void onDisable() {
         mRuneRunner.unloadRunes();
 
@@ -41,8 +29,15 @@ public class Magickraft extends JavaPlugin {
     }
 
     public void onEnable() {
+        CONFIG = new MagickraftConfig(this);
+
+        loadRuneSets();
+
+        mRuneRunner = new RuneRunner();
+
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_RIGHTCLICKED, mRuneRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.BLOCK_DAMAGED, mRuneRunner, Priority.Normal, this);
+        getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BREAK, mRuneRunner, Priority.Normal, this);
         getServer().getPluginManager().registerEvent(Event.Type.REDSTONE_CHANGE, mRuneRunner, Priority.Normal, this);
 
         ArrayList<Rune> runes = new ArrayList<Rune>();
