@@ -206,9 +206,7 @@ public class AerogaRune extends Rune {
         Block block = event.getClickedBlock();
 
         // is it an Aeroga rune?
-        log.info("Checking Aeroga");
         if (tryRuneWithoutConsumption(block)) {
-        	log.info("Found Aeroga");
             // make sure there's no ceiling
             if (block.getWorld().getHighestBlockYAt(block.getX(), block.getZ()) != block.getFace(BlockFace.UP, 4).getY()) {
                 event.getPlayer().sendMessage("Unable to perform Aeroga due to elements in the way");
