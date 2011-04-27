@@ -38,7 +38,19 @@ public class RuneRunner extends BlockListener
     @Override
 	public void onBlockBreak(BlockBreakEvent event) {
     	 for(Rune rune : mRunes) {
-             if (rune.getEnabled()) {
+    		 boolean enabled=false;
+    		 if(!Magick.hasPermissions())
+    		 {
+    			 if (rune.getEnabled()) 
+    				 enabled=true;
+    		 }
+    		 else
+    		 {
+    			 if(Magick.permissionHandler.has(event.getPlayer(), "magick."+rune.getName()))
+    				 enabled=true;
+    		 }
+    		 if(enabled)
+    		 {
                  if (rune.onRuneUseBreak(event)) {
                      return;
                  }
@@ -46,7 +58,19 @@ public class RuneRunner extends BlockListener
          }
 
          for(Rune rune : mRunes) {
-             if (rune.getEnabled()) {
+        	 boolean enabled=false;
+    		 if(!Magick.hasPermissions())
+    		 {
+    			 if (rune.getEnabled()) 
+    				 enabled=true;
+    		 }
+    		 else
+    		 {
+    			 if(Magick.permissionHandler.has(event.getPlayer(), "magick."+rune.getName()))
+    				 enabled=true;
+    		 }
+    		 if(enabled)
+    		 {
                  if (rune.onRuneBreak(event)) {
                      return;
                  }
@@ -57,7 +81,19 @@ public class RuneRunner extends BlockListener
 	@Override
 	public void onBlockDamage(BlockDamageEvent event) {
 		for(Rune rune : mRunes) {
-            if (rune.getEnabled()) {
+			boolean enabled=false;
+   		 if(!Magick.hasPermissions())
+   		 {
+   			 if (rune.getEnabled()) 
+   				 enabled=true;
+   		 }
+   		 else
+   		 {
+   			 if(Magick.permissionHandler.has(event.getPlayer(), "magick."+rune.getName()))
+   				 enabled=true;
+   		 }
+   		 if(enabled)
+   		 {
                 if (rune.onRuneUseDamage(event)) {
                     return;
                 }
@@ -65,7 +101,19 @@ public class RuneRunner extends BlockListener
         }
 
         for(Rune rune : mRunes) {
-            if (rune.getEnabled()) {
+        	boolean enabled=false;
+   		 if(!Magick.hasPermissions())
+   		 {
+   			 if (rune.getEnabled()) 
+   				 enabled=true;
+   		 }
+   		 else
+   		 {
+   			 if(Magick.permissionHandler.has(event.getPlayer(), "magick."+rune.getName()))
+   				 enabled=true;
+   		 }
+   		 if(enabled)
+   		 {
                 if (rune.onRuneDamage(event)) {
                     return;
                 }
@@ -76,7 +124,11 @@ public class RuneRunner extends BlockListener
 	@Override
 	public void onBlockRedstoneChange(BlockRedstoneEvent event) {
 		for(Rune rune : mRunes) {
-            if (rune.getEnabled()) {
+			boolean enabled=false;
+   			 if (rune.getEnabled()) 
+   				 enabled=true;
+   		 if(enabled)
+   		 {
                 if (rune.onRuneUseRedstone(event)) {
                     return;
                 }
@@ -84,7 +136,13 @@ public class RuneRunner extends BlockListener
         }
 
         for(Rune rune : mRunes) {
-            if (rune.getEnabled()) {
+        	boolean enabled=false;
+   		 
+   			 if (rune.getEnabled()) 
+   				 enabled=true;
+   		 
+   		 if(enabled)
+   		 {
                 if (rune.onRuneRedstone(event)) {
                     return;
                 }
@@ -105,7 +163,19 @@ public class RuneRunner extends BlockListener
 		        }
 
 		        for(Rune rune : mRunes) {
-		            if (rune.getEnabled()) {
+		        	boolean enabled=false;
+		    		 if(!Magick.hasPermissions())
+		    		 {
+		    			 if (rune.getEnabled()) 
+		    				 enabled=true;
+		    		 }
+		    		 else
+		    		 {
+		    			 if(Magick.permissionHandler.has(event.getPlayer(), "magick."+rune.getName()))
+		    				 enabled=true;
+		    		 }
+		    		 if(enabled)
+		    		 {
 		                if (rune.onRuneUseRightClick(event)) {
 		                    return;
 		                }
@@ -113,7 +183,19 @@ public class RuneRunner extends BlockListener
 		        }
 
 		        for(Rune rune : mRunes) {
-		            if (rune.getEnabled()) {
+		        	boolean enabled=false;
+		    		 if(!Magick.hasPermissions())
+		    		 {
+		    			 if (rune.getEnabled()) 
+		    				 enabled=true;
+		    		 }
+		    		 else
+		    		 {
+		    			 if(Magick.permissionHandler.has(event.getPlayer(), "magick."+rune.getName()))
+		    				 enabled=true;
+		    		 }
+		    		 if(enabled)
+		    		 {
 		                if (rune.onRuneRightClick(event)) {
 		                    return;
 		                }

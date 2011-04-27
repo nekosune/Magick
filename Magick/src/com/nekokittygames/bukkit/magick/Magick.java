@@ -11,7 +11,11 @@ import java.util.regex.Pattern;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.nijiko.permissions.PermissionHandler;
+import com.nijikokun.bukkit.Permissions.Permissions;
 
 /**
  * @author Katrina Swales
@@ -22,10 +26,29 @@ public class Magick extends JavaPlugin {
 	// a list of all rune sets
     private static final HashMap<String, RuneSet> RUNE_SETS = new HashMap<String, RuneSet>();
     private static final RuneSetLoader RUNE_SET_LOADER = new RuneSetLoader();
-
+    private static boolean mPermissions=false;
+    public static boolean hasPermissions()
+    {
+    	return mPermissions;
+    }
     private static final Logger log = Logger.getLogger("Minecraft");
 
     public static MagickConfig CONFIG = null;
+    public static PermissionHandler permissionHandler;
+
+    private void setupPermissions() {
+        Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
+
+        if (this.permissionHandler == null) {
+            if (permissionsPlugin != null) {
+                this.permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+                mPermissions=true;
+                log.info("[Magick] Permissions system detected");
+            } else {
+                log.info("Permission system not detected, defaulting to OP");
+            }
+        }
+    }
 
     private RuneRunner mRuneRunner;
     private RuneRunner.RuneRunnerPlayer mRuneRunnerPlayer;
@@ -62,7 +85,7 @@ public class Magick extends JavaPlugin {
         }
 
         mRuneRunner.loadRunes(runes);
-
+        setupPermissions();
         log.info(getDescription().getName() + " v" + getDescription().getVersion() + " loaded!");
     }
 
